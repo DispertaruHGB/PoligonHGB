@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
+        <script src="data/GABUNGAN_1.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-7.802097022818212,110.35208167814994],[-7.775881090631752,110.38986113329477]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleSatelliteHybrid_0');
+        map.getPane('pane_GoogleSatelliteHybrid_0').style.zIndex = 400;
+        var layer_GoogleSatelliteHybrid_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatelliteHybrid_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_GoogleSatelliteHybrid_0;
+        map.addLayer(layer_GoogleSatelliteHybrid_0);
+        function pop_GABUNGAN_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Id</th>\
+                        <td>' + (feature.properties['Id'] !== null ? autolinker.link(feature.properties['Id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">No. Arsip</th>\
+                        <td>' + (feature.properties['No. Arsip'] !== null ? autolinker.link(feature.properties['No. Arsip'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">No. Urut</th>\
+                        <td>' + (feature.properties['No. Urut'] !== null ? autolinker.link(feature.properties['No. Urut'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">No. Surat</th>\
+                        <td>' + (feature.properties['No. Surat'] !== null ? autolinker.link(feature.properties['No. Surat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tgl. Surat</th>\
+                        <td>' + (feature.properties['Tgl. Surat'] !== null ? autolinker.link(feature.properties['Tgl. Surat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Pemohon</th>\
+                        <td>' + (feature.properties['Pemohon'] !== null ? autolinker.link(feature.properties['Pemohon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Uraian</th>\
+                        <td>' + (feature.properties['Uraian'] !== null ? autolinker.link(feature.properties['Uraian'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Jenis Hak</th>\
+                        <td>' + (feature.properties['Jenis Hak'] !== null ? autolinker.link(feature.properties['Jenis Hak'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">No. Hak</th>\
+                        <td>' + (feature.properties['No. Hak'] !== null ? autolinker.link(feature.properties['No. Hak'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kel/Kal</th>\
+                        <td>' + (feature.properties['Kel/Kal'] !== null ? autolinker.link(feature.properties['Kel/Kal'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kem/Kap</th>\
+                        <td>' + (feature.properties['Kem/Kap'] !== null ? autolinker.link(feature.properties['Kem/Kap'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kota/Kab</th>\
+                        <td>' + (feature.properties['Kota/Kab'] !== null ? autolinker.link(feature.properties['Kota/Kab'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Berakhir H</th>\
+                        <td>' + (feature.properties['Berakhir H'] !== null ? autolinker.link(feature.properties['Berakhir H'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Dasar SK</th>\
+                        <td>' + (feature.properties['Dasar SK'] !== null ? autolinker.link(feature.properties['Dasar SK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Penunjuk</th>\
+                        <td>' + (feature.properties['Penunjuk'] !== null ? autolinker.link(feature.properties['Penunjuk'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tgl. Rapat</th>\
+                        <td>' + (feature.properties['Tgl. Rapat'] !== null ? autolinker.link(feature.properties['Tgl. Rapat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Asal-Usul</th>\
+                        <td>' + (feature.properties['Asal-Usul'] !== null ? autolinker.link(feature.properties['Asal-Usul'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kelompok</th>\
+                        <td>' + (feature.properties['Kelompok'] !== null ? autolinker.link(feature.properties['Kelompok'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tindak Lan</th>\
+                        <td>' + (feature.properties['Tindak Lan'] !== null ? autolinker.link(feature.properties['Tindak Lan'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Plotting</th>\
+                        <td>' + (feature.properties['Plotting'] !== null ? autolinker.link(feature.properties['Plotting'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tahun</th>\
+                        <td>' + (feature.properties['Tahun'] !== null ? autolinker.link(feature.properties['Tahun'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Status</th>\
+                        <td>' + (feature.properties['Status'] !== null ? autolinker.link(feature.properties['Status'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tgl. Tangg</th>\
+                        <td>' + (feature.properties['Tgl. Tangg'] !== null ? autolinker.link(feature.properties['Tgl. Tangg'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">layer</th>\
+                        <td>' + (feature.properties['layer'] !== null ? autolinker.link(feature.properties['layer'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">path</th>\
+                        <td>' + (feature.properties['path'] !== null ? autolinker.link(feature.properties['path'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tgl. Terim</th>\
+                        <td>' + (feature.properties['Tgl. Terim'] !== null ? autolinker.link(feature.properties['Tgl. Terim'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Koordinat</th>\
+                        <td>' + (feature.properties['Koordinat'] !== null ? autolinker.link(feature.properties['Koordinat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">No. Telp</th>\
+                        <td>' + (feature.properties['No. Telp'] !== null ? autolinker.link(feature.properties['No. Telp'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Jenis</th>\
+                        <td>' + (feature.properties['Jenis'] !== null ? autolinker.link(feature.properties['Jenis'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Deadline</th>\
+                        <td>' + (feature.properties['Deadline'] !== null ? autolinker.link(feature.properties['Deadline'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Progres Su</th>\
+                        <td>' + (feature.properties['Progres Su'] !== null ? autolinker.link(feature.properties['Progres Su'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Status Sur</th>\
+                        <td>' + (feature.properties['Status Sur'] !== null ? autolinker.link(feature.properties['Status Sur'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Penerima</th>\
+                        <td>' + (feature.properties['Penerima'] !== null ? autolinker.link(feature.properties['Penerima'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tgl. Ambil</th>\
+                        <td>' + (feature.properties['Tgl. Ambil'] !== null ? autolinker.link(feature.properties['Tgl. Ambil'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Lama Prose</th>\
+                        <td>' + (feature.properties['Lama Prose'] !== null ? autolinker.link(feature.properties['Lama Prose'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_GABUNGAN_1_0(feature) {
+            switch(String(feature.properties['Status'])) {
+                case 'Belum Jelas':
+                    return {
+                pane: 'pane_GABUNGAN_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(146,146,146,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Berkas Dikembalikan':
+                    return {
+                pane: 'pane_GABUNGAN_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,254,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Bukan SG':
+                    return {
+                pane: 'pane_GABUNGAN_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(71,237,65,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'PAG':
+                    return {
+                pane: 'pane_GABUNGAN_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,1,251,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Pengukuran Ulang':
+                    return {
+                pane: 'pane_GABUNGAN_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,246,0,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'PERMOHONAN DICABUT':
+                    return {
+                pane: 'pane_GABUNGAN_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'SG':
+                    return {
+                pane: 'pane_GABUNGAN_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,0,0,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_GABUNGAN_1');
+        map.getPane('pane_GABUNGAN_1').style.zIndex = 401;
+        map.getPane('pane_GABUNGAN_1').style['mix-blend-mode'] = 'normal';
+        var layer_GABUNGAN_1 = new L.geoJson(json_GABUNGAN_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_GABUNGAN_1',
+            layerName: 'layer_GABUNGAN_1',
+            pane: 'pane_GABUNGAN_1',
+            onEachFeature: pop_GABUNGAN_1,
+            style: style_GABUNGAN_1_0,
+        });
+        bounds_group.addLayer(layer_GABUNGAN_1);
+        map.addLayer(layer_GABUNGAN_1);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        setBounds();
+        map.addControl(new L.Control.Search({
+            layer: layer_GABUNGAN_1,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'Pemohon'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"Kel/Kal": "str","Status": "str","Kota/Kab": "str","Tahun": "str","Kem/Kap": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_KelKal = document.createElement('div');
+            div_KelKal.id = "div_KelKal";
+            div_KelKal.className= "filterselect";
+            document.getElementById("menu").appendChild(div_KelKal);
+            sel_KelKal = document.createElement('select');
+            sel_KelKal.multiple = true;
+            sel_KelKal.size = 10;
+            sel_KelKal.id = "sel_KelKal";
+            var KelKal_options_str = "<option value='' unselected></option>";
+            sel_KelKal.onchange = function(){filterFunc()};
+            KelKal_options_str  += '<option value="NULL">NULL</option>';
+            KelKal_options_str  += '<option value="Ambarketawang">Ambarketawang</option>';
+            KelKal_options_str  += '<option value="Baciro">Baciro</option>';
+            KelKal_options_str  += '<option value="Bangunharjo">Bangunharjo</option>';
+            KelKal_options_str  += '<option value="Banguntapan">Banguntapan</option>';
+            KelKal_options_str  += '<option value="Bantul">Bantul</option>';
+            KelKal_options_str  += '<option value="Banyuraden">Banyuraden</option>';
+            KelKal_options_str  += '<option value="Baturetno">Baturetno</option>';
+            KelKal_options_str  += '<option value="Bausasran">Bausasran</option>';
+            KelKal_options_str  += '<option value="Bener">Bener</option>';
+            KelKal_options_str  += '<option value="Bokoharjo">Bokoharjo</option>';
+            KelKal_options_str  += '<option value="Brontokusuman">Brontokusuman</option>';
+            KelKal_options_str  += '<option value="Bumijo">Bumijo</option>';
+            KelKal_options_str  += '<option value="Caturharjo">Caturharjo</option>';
+            KelKal_options_str  += '<option value="Caturtunggal">Caturtunggal</option>';
+            KelKal_options_str  += '<option value="Cokrodiningratan">Cokrodiningratan</option>';
+            KelKal_options_str  += '<option value="Congdongcatur">Congdongcatur</option>';
+            KelKal_options_str  += '<option value="Danurejan">Danurejan</option>';
+            KelKal_options_str  += '<option value="Demangan">Demangan</option>';
+            KelKal_options_str  += '<option value="Gedongkiwo">Gedongkiwo</option>';
+            KelKal_options_str  += '<option value="Gowongan">Gowongan</option>';
+            KelKal_options_str  += '<option value="Gunungketur">Gunungketur</option>';
+            KelKal_options_str  += '<option value="Hargobinangun">Hargobinangun</option>';
+            KelKal_options_str  += '<option value="Imogiri">Imogiri</option>';
+            KelKal_options_str  += '<option value="Kalasan">Kalasan</option>';
+            KelKal_options_str  += '<option value="Kalitirto">Kalitirto</option>';
+            KelKal_options_str  += '<option value="Karangwaru">Karangwaru</option>';
+            KelKal_options_str  += '<option value="Kasihan">Kasihan</option>';
+            KelKal_options_str  += '<option value="Keparakan">Keparakan</option>';
+            KelKal_options_str  += '<option value="Klitren">Klitren</option>';
+            KelKal_options_str  += '<option value="Kotabaru">Kotabaru</option>';
+            KelKal_options_str  += '<option value="Kricak">Kricak</option>';
+            KelKal_options_str  += '<option value="Madurejo">Madurejo</option>';
+            KelKal_options_str  += '<option value="Maguwoharjo">Maguwoharjo</option>';
+            KelKal_options_str  += '<option value="Mantrijeron">Mantrijeron</option>';
+            KelKal_options_str  += '<option value="Minomartani">Minomartani</option>';
+            KelKal_options_str  += '<option value="Mujamuju">Mujamuju</option>';
+            KelKal_options_str  += '<option value="Ngampilan">Ngampilan</option>';
+            KelKal_options_str  += '<option value="Ngestiharjo">Ngestiharjo</option>';
+            KelKal_options_str  += '<option value="Ngupasan">Ngupasan</option>';
+            KelKal_options_str  += '<option value="Notoprajan">Notoprajan</option>';
+            KelKal_options_str  += '<option value="Pakembinangun">Pakembinangun</option>';
+            KelKal_options_str  += '<option value="Pakuncen">Pakuncen</option>';
+            KelKal_options_str  += '<option value="Pandeyan">Pandeyan</option>';
+            KelKal_options_str  += '<option value="Panembahan">Panembahan</option>';
+            KelKal_options_str  += '<option value="Panggungharjo">Panggungharjo</option>';
+            KelKal_options_str  += '<option value="Parangtritis">Parangtritis</option>';
+            KelKal_options_str  += '<option value="Patangpuluhan">Patangpuluhan</option>';
+            KelKal_options_str  += '<option value="Pleret">Pleret</option>';
+            KelKal_options_str  += '<option value="Potorono">Potorono</option>';
+            KelKal_options_str  += '<option value="Prawirodirjan">Prawirodirjan</option>';
+            KelKal_options_str  += '<option value="Prenggan">Prenggan</option>';
+            KelKal_options_str  += '<option value="Pringgokusuman">Pringgokusuman</option>';
+            KelKal_options_str  += '<option value="Purwodiningratan">Purwodiningratan</option>';
+            KelKal_options_str  += '<option value="Purwokinanti">Purwokinanti</option>';
+            KelKal_options_str  += '<option value="Purwomartani">Purwomartani</option>';
+            KelKal_options_str  += '<option value="Rejowinangun">Rejowinangun</option>';
+            KelKal_options_str  += '<option value="Sardonoharjo">Sardonoharjo</option>';
+            KelKal_options_str  += '<option value="Sariharjo">Sariharjo</option>';
+            KelKal_options_str  += '<option value="Semaki">Semaki</option>';
+            KelKal_options_str  += '<option value="Sendangadi">Sendangadi</option>';
+            KelKal_options_str  += '<option value="Sidomulyo">Sidomulyo</option>';
+            KelKal_options_str  += '<option value="Sinduadi">Sinduadi</option>';
+            KelKal_options_str  += '<option value="Sitimulyo">Sitimulyo</option>';
+            KelKal_options_str  += '<option value="Sorosutan">Sorosutan</option>';
+            KelKal_options_str  += '<option value="Sosromenduran">Sosromenduran</option>';
+            KelKal_options_str  += '<option value="Srihardono">Srihardono</option>';
+            KelKal_options_str  += '<option value="Sukoharjo">Sukoharjo</option>';
+            KelKal_options_str  += '<option value="Sumberadi">Sumberadi</option>';
+            KelKal_options_str  += '<option value="Sumberharjo">Sumberharjo</option>';
+            KelKal_options_str  += '<option value="Sumbermulyo">Sumbermulyo</option>';
+            KelKal_options_str  += '<option value="Suryatmajan">Suryatmajan</option>';
+            KelKal_options_str  += '<option value="Suryodiningratan">Suryodiningratan</option>';
+            KelKal_options_str  += '<option value="Tahunan">Tahunan</option>';
+            KelKal_options_str  += '<option value="Tamanmartani">Tamanmartani</option>';
+            KelKal_options_str  += '<option value="Tamantirto">Tamantirto</option>';
+            KelKal_options_str  += '<option value="Tegalpanggung">Tegalpanggung</option>';
+            KelKal_options_str  += '<option value="Tegalrejo">Tegalrejo</option>';
+            KelKal_options_str  += '<option value="Terban">Terban</option>';
+            KelKal_options_str  += '<option value="Tirtonirmolo">Tirtonirmolo</option>';
+            KelKal_options_str  += '<option value="Tlogoadi">Tlogoadi</option>';
+            KelKal_options_str  += '<option value="Tridadi">Tridadi</option>';
+            KelKal_options_str  += '<option value="Trihanggo">Trihanggo</option>';
+            KelKal_options_str  += '<option value="Trirenggo">Trirenggo</option>';
+            KelKal_options_str  += '<option value="Umbulmartani">Umbulmartani</option>';
+            KelKal_options_str  += '<option value="Warungboto">Warungboto</option>';
+            KelKal_options_str  += '<option value="Wates">Wates</option>';
+            KelKal_options_str  += '<option value="Wedomartani">Wedomartani</option>';
+            KelKal_options_str  += '<option value="Wirobrajan">Wirobrajan</option>';
+            KelKal_options_str  += '<option value="Wirogunan">Wirogunan</option>';
+            KelKal_options_str  += '<option value="Wonokromo">Wonokromo</option>';
+            sel_KelKal.innerHTML = KelKal_options_str;
+            div_KelKal.appendChild(sel_KelKal);
+            var lab_KelKal = document.createElement('div');
+            lab_KelKal.innerHTML = 'Kel/Kal';
+            lab_KelKal.className = 'filterlabel';
+            div_KelKal.appendChild(lab_KelKal);
+            var reset_KelKal = document.createElement('div');
+            reset_KelKal.innerHTML = 'clear filter';
+            reset_KelKal.className = 'filterlabel';
+            reset_KelKal.onclick = function() {
+                var options = document.getElementById("sel_KelKal").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_KelKal.appendChild(reset_KelKal);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Status = document.createElement('div');
+            div_Status.id = "div_Status";
+            div_Status.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Status);
+            sel_Status = document.createElement('select');
+            sel_Status.multiple = true;
+            sel_Status.size = 7;
+            sel_Status.id = "sel_Status";
+            var Status_options_str = "<option value='' unselected></option>";
+            sel_Status.onchange = function(){filterFunc()};
+            Status_options_str  += '<option value="Belum Jelas">Belum Jelas</option>';
+            Status_options_str  += '<option value="Berkas Dikembalikan">Berkas Dikembalikan</option>';
+            Status_options_str  += '<option value="Bukan SG">Bukan SG</option>';
+            Status_options_str  += '<option value="PAG">PAG</option>';
+            Status_options_str  += '<option value="PERMOHONAN DICABUT">PERMOHONAN DICABUT</option>';
+            Status_options_str  += '<option value="Pengukuran Ulang">Pengukuran Ulang</option>';
+            Status_options_str  += '<option value="SG">SG</option>';
+            sel_Status.innerHTML = Status_options_str;
+            div_Status.appendChild(sel_Status);
+            var lab_Status = document.createElement('div');
+            lab_Status.innerHTML = 'Status';
+            lab_Status.className = 'filterlabel';
+            div_Status.appendChild(lab_Status);
+            var reset_Status = document.createElement('div');
+            reset_Status.innerHTML = 'clear filter';
+            reset_Status.className = 'filterlabel';
+            reset_Status.onclick = function() {
+                var options = document.getElementById("sel_Status").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_Status.appendChild(reset_Status);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_KotaKab = document.createElement('div');
+            div_KotaKab.id = "div_KotaKab";
+            div_KotaKab.className= "filterselect";
+            document.getElementById("menu").appendChild(div_KotaKab);
+            sel_KotaKab = document.createElement('select');
+            sel_KotaKab.multiple = true;
+            sel_KotaKab.size = 4;
+            sel_KotaKab.id = "sel_KotaKab";
+            var KotaKab_options_str = "<option value='' unselected></option>";
+            sel_KotaKab.onchange = function(){filterFunc()};
+            KotaKab_options_str  += '<option value="Bantul">Bantul</option>';
+            KotaKab_options_str  += '<option value="Kota Yogyakarta">Kota Yogyakarta</option>';
+            KotaKab_options_str  += '<option value="Kulon Progo">Kulon Progo</option>';
+            KotaKab_options_str  += '<option value="Sleman">Sleman</option>';
+            sel_KotaKab.innerHTML = KotaKab_options_str;
+            div_KotaKab.appendChild(sel_KotaKab);
+            var lab_KotaKab = document.createElement('div');
+            lab_KotaKab.innerHTML = 'Kota/Kab';
+            lab_KotaKab.className = 'filterlabel';
+            div_KotaKab.appendChild(lab_KotaKab);
+            var reset_KotaKab = document.createElement('div');
+            reset_KotaKab.innerHTML = 'clear filter';
+            reset_KotaKab.className = 'filterlabel';
+            reset_KotaKab.onclick = function() {
+                var options = document.getElementById("sel_KotaKab").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_KotaKab.appendChild(reset_KotaKab);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Tahun = document.createElement('div');
+            div_Tahun.id = "div_Tahun";
+            div_Tahun.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Tahun);
+            sel_Tahun = document.createElement('select');
+            sel_Tahun.multiple = true;
+            sel_Tahun.size = 5;
+            sel_Tahun.id = "sel_Tahun";
+            var Tahun_options_str = "<option value='' unselected></option>";
+            sel_Tahun.onchange = function(){filterFunc()};
+            Tahun_options_str  += '<option value="2020">2020</option>';
+            Tahun_options_str  += '<option value="2021">2021</option>';
+            Tahun_options_str  += '<option value="2022">2022</option>';
+            Tahun_options_str  += '<option value="2023">2023</option>';
+            Tahun_options_str  += '<option value="2024">2024</option>';
+            sel_Tahun.innerHTML = Tahun_options_str;
+            div_Tahun.appendChild(sel_Tahun);
+            var lab_Tahun = document.createElement('div');
+            lab_Tahun.innerHTML = 'Tahun';
+            lab_Tahun.className = 'filterlabel';
+            div_Tahun.appendChild(lab_Tahun);
+            var reset_Tahun = document.createElement('div');
+            reset_Tahun.innerHTML = 'clear filter';
+            reset_Tahun.className = 'filterlabel';
+            reset_Tahun.onclick = function() {
+                var options = document.getElementById("sel_Tahun").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_Tahun.appendChild(reset_Tahun);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_KemKap = document.createElement('div');
+            div_KemKap.id = "div_KemKap";
+            div_KemKap.className= "filterselect";
+            document.getElementById("menu").appendChild(div_KemKap);
+            sel_KemKap = document.createElement('select');
+            sel_KemKap.multiple = true;
+            sel_KemKap.size = 10;
+            sel_KemKap.id = "sel_KemKap";
+            var KemKap_options_str = "<option value='' unselected></option>";
+            sel_KemKap.onchange = function(){filterFunc()};
+            KemKap_options_str  += '<option value="NULL">NULL</option>';
+            KemKap_options_str  += '<option value="Bambanglipuro">Bambanglipuro</option>';
+            KemKap_options_str  += '<option value="Banguntapan">Banguntapan</option>';
+            KemKap_options_str  += '<option value="Bantul">Bantul</option>';
+            KemKap_options_str  += '<option value="Berbah">Berbah</option>';
+            KemKap_options_str  += '<option value="Danurejan">Danurejan</option>';
+            KemKap_options_str  += '<option value="Depok">Depok</option>';
+            KemKap_options_str  += '<option value="Gamping">Gamping</option>';
+            KemKap_options_str  += '<option value="Gedongtengen">Gedongtengen</option>';
+            KemKap_options_str  += '<option value="Godean">Godean</option>';
+            KemKap_options_str  += '<option value="Gondokusuman">Gondokusuman</option>';
+            KemKap_options_str  += '<option value="Gondomanan">Gondomanan</option>';
+            KemKap_options_str  += '<option value="Imogiri">Imogiri</option>';
+            KemKap_options_str  += '<option value="Jetis">Jetis</option>';
+            KemKap_options_str  += '<option value="Kalasan">Kalasan</option>';
+            KemKap_options_str  += '<option value="Kasihan">Kasihan</option>';
+            KemKap_options_str  += '<option value="Kotagede">Kotagede</option>';
+            KemKap_options_str  += '<option value="Kraton">Kraton</option>';
+            KemKap_options_str  += '<option value="Kretek">Kretek</option>';
+            KemKap_options_str  += '<option value="Mantrijeron">Mantrijeron</option>';
+            KemKap_options_str  += '<option value="Mergangsan">Mergangsan</option>';
+            KemKap_options_str  += '<option value="Mlati">Mlati</option>';
+            KemKap_options_str  += '<option value="Ngaglik">Ngaglik</option>';
+            KemKap_options_str  += '<option value="Ngampilan">Ngampilan</option>';
+            KemKap_options_str  += '<option value="Ngemplak">Ngemplak</option>';
+            KemKap_options_str  += '<option value="Pakem">Pakem</option>';
+            KemKap_options_str  += '<option value="Pakualaman">Pakualaman</option>';
+            KemKap_options_str  += '<option value="Piyungan">Piyungan</option>';
+            KemKap_options_str  += '<option value="Pleret">Pleret</option>';
+            KemKap_options_str  += '<option value="Prambanan">Prambanan</option>';
+            KemKap_options_str  += '<option value="Pundong">Pundong</option>';
+            KemKap_options_str  += '<option value="Purwomartani">Purwomartani</option>';
+            KemKap_options_str  += '<option value="Sewon">Sewon</option>';
+            KemKap_options_str  += '<option value="Sleman">Sleman</option>';
+            KemKap_options_str  += '<option value="Tamantirto">Tamantirto</option>';
+            KemKap_options_str  += '<option value="Tegalrejo">Tegalrejo</option>';
+            KemKap_options_str  += '<option value="Umbulharjo">Umbulharjo</option>';
+            KemKap_options_str  += '<option value="Wates">Wates</option>';
+            KemKap_options_str  += '<option value="Wirobrajan">Wirobrajan</option>';
+            sel_KemKap.innerHTML = KemKap_options_str;
+            div_KemKap.appendChild(sel_KemKap);
+            var lab_KemKap = document.createElement('div');
+            lab_KemKap.innerHTML = 'Kem/Kap';
+            lab_KemKap.className = 'filterlabel';
+            div_KemKap.appendChild(lab_KemKap);
+            var reset_KemKap = document.createElement('div');
+            reset_KemKap.innerHTML = 'clear filter';
+            reset_KemKap.className = 'filterlabel';
+            reset_KemKap.onclick = function() {
+                var options = document.getElementById("sel_KemKap").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_KemKap.appendChild(reset_KemKap);
+        </script>
+    </body>
+</html>
