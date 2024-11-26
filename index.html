@@ -1,0 +1,1812 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
+        <script src="data/GABUNGAN_1.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-7.802097022818212,110.35208167814994],[-7.775881090631752,110.38986113329477]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleSatelliteHybrid_0');
+        map.getPane('pane_GoogleSatelliteHybrid_0').style.zIndex = 400;
+        var layer_GoogleSatelliteHybrid_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatelliteHybrid_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_GoogleSatelliteHybrid_0;
+        map.addLayer(layer_GoogleSatelliteHybrid_0);
+        function pop_GABUNGAN_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Id</th>\
+                        <td>' + (feature.properties['Id'] !== null ? autolinker.link(feature.properties['Id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">No. Arsip</th>\
+                        <td>' + (feature.properties['No. Arsip'] !== null ? autolinker.link(feature.properties['No. Arsip'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">No. Urut</th>\
+                        <td>' + (feature.properties['No. Urut'] !== null ? autolinker.link(feature.properties['No. Urut'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">No. Surat</th>\
+                        <td>' + (feature.properties['No. Surat'] !== null ? autolinker.link(feature.properties['No. Surat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tgl. Surat</th>\
+                        <td>' + (feature.properties['Tgl. Surat'] !== null ? autolinker.link(feature.properties['Tgl. Surat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Pemohon</th>\
+                        <td>' + (feature.properties['Pemohon'] !== null ? autolinker.link(feature.properties['Pemohon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Uraian</th>\
+                        <td>' + (feature.properties['Uraian'] !== null ? autolinker.link(feature.properties['Uraian'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Jenis Hak</th>\
+                        <td>' + (feature.properties['Jenis Hak'] !== null ? autolinker.link(feature.properties['Jenis Hak'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">No. Hak</th>\
+                        <td>' + (feature.properties['No. Hak'] !== null ? autolinker.link(feature.properties['No. Hak'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kel/Kal</th>\
+                        <td>' + (feature.properties['Kel/Kal'] !== null ? autolinker.link(feature.properties['Kel/Kal'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kem/Kap</th>\
+                        <td>' + (feature.properties['Kem/Kap'] !== null ? autolinker.link(feature.properties['Kem/Kap'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kota/Kab</th>\
+                        <td>' + (feature.properties['Kota/Kab'] !== null ? autolinker.link(feature.properties['Kota/Kab'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Berakhir H</th>\
+                        <td>' + (feature.properties['Berakhir H'] !== null ? autolinker.link(feature.properties['Berakhir H'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Dasar SK</th>\
+                        <td>' + (feature.properties['Dasar SK'] !== null ? autolinker.link(feature.properties['Dasar SK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Penunjuk</th>\
+                        <td>' + (feature.properties['Penunjuk'] !== null ? autolinker.link(feature.properties['Penunjuk'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tgl. Rapat</th>\
+                        <td>' + (feature.properties['Tgl. Rapat'] !== null ? autolinker.link(feature.properties['Tgl. Rapat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Asal-Usul</th>\
+                        <td>' + (feature.properties['Asal-Usul'] !== null ? autolinker.link(feature.properties['Asal-Usul'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kelompok</th>\
+                        <td>' + (feature.properties['Kelompok'] !== null ? autolinker.link(feature.properties['Kelompok'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tindak Lan</th>\
+                        <td>' + (feature.properties['Tindak Lan'] !== null ? autolinker.link(feature.properties['Tindak Lan'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Plotting</th>\
+                        <td>' + (feature.properties['Plotting'] !== null ? autolinker.link(feature.properties['Plotting'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tahun</th>\
+                        <td>' + (feature.properties['Tahun'] !== null ? autolinker.link(feature.properties['Tahun'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Status</th>\
+                        <td>' + (feature.properties['Status'] !== null ? autolinker.link(feature.properties['Status'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tgl. Tangg</th>\
+                        <td>' + (feature.properties['Tgl. Tangg'] !== null ? autolinker.link(feature.properties['Tgl. Tangg'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">layer</th>\
+                        <td>' + (feature.properties['layer'] !== null ? autolinker.link(feature.properties['layer'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">path</th>\
+                        <td>' + (feature.properties['path'] !== null ? autolinker.link(feature.properties['path'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tgl. Terim</th>\
+                        <td>' + (feature.properties['Tgl. Terim'] !== null ? autolinker.link(feature.properties['Tgl. Terim'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Koordinat</th>\
+                        <td>' + (feature.properties['Koordinat'] !== null ? autolinker.link(feature.properties['Koordinat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">No. Telp</th>\
+                        <td>' + (feature.properties['No. Telp'] !== null ? autolinker.link(feature.properties['No. Telp'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Jenis</th>\
+                        <td>' + (feature.properties['Jenis'] !== null ? autolinker.link(feature.properties['Jenis'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Deadline</th>\
+                        <td>' + (feature.properties['Deadline'] !== null ? autolinker.link(feature.properties['Deadline'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Progres Su</th>\
+                        <td>' + (feature.properties['Progres Su'] !== null ? autolinker.link(feature.properties['Progres Su'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Status Sur</th>\
+                        <td>' + (feature.properties['Status Sur'] !== null ? autolinker.link(feature.properties['Status Sur'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Penerima</th>\
+                        <td>' + (feature.properties['Penerima'] !== null ? autolinker.link(feature.properties['Penerima'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tgl. Ambil</th>\
+                        <td>' + (feature.properties['Tgl. Ambil'] !== null ? autolinker.link(feature.properties['Tgl. Ambil'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Lama Prose</th>\
+                        <td>' + (feature.properties['Lama Prose'] !== null ? autolinker.link(feature.properties['Lama Prose'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_GABUNGAN_1_0(feature) {
+            switch(String(feature.properties['Status'])) {
+                case 'Belum Jelas':
+                    return {
+                pane: 'pane_GABUNGAN_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(146,146,146,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Berkas Dikembalikan':
+                    return {
+                pane: 'pane_GABUNGAN_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,254,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Bukan SG':
+                    return {
+                pane: 'pane_GABUNGAN_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(71,237,65,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'PAG':
+                    return {
+                pane: 'pane_GABUNGAN_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,1,251,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Pengukuran Ulang':
+                    return {
+                pane: 'pane_GABUNGAN_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,246,0,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'PERMOHONAN DICABUT':
+                    return {
+                pane: 'pane_GABUNGAN_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'SG':
+                    return {
+                pane: 'pane_GABUNGAN_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,0,0,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_GABUNGAN_1');
+        map.getPane('pane_GABUNGAN_1').style.zIndex = 401;
+        map.getPane('pane_GABUNGAN_1').style['mix-blend-mode'] = 'normal';
+        var layer_GABUNGAN_1 = new L.geoJson(json_GABUNGAN_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_GABUNGAN_1',
+            layerName: 'layer_GABUNGAN_1',
+            pane: 'pane_GABUNGAN_1',
+            onEachFeature: pop_GABUNGAN_1,
+            style: style_GABUNGAN_1_0,
+        });
+        bounds_group.addLayer(layer_GABUNGAN_1);
+        map.addLayer(layer_GABUNGAN_1);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        setBounds();
+        map.addControl(new L.Control.Search({
+            layer: layer_GABUNGAN_1,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'No. Hak'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"Kel/Kal": "str","No. Urut": "str","Penerima": "str","path": "str","Kem/Kap": "str","No. Surat": "str","Id": "str","layer": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_KelKal = document.createElement('div');
+            div_KelKal.id = "div_KelKal";
+            div_KelKal.className= "filterselect";
+            document.getElementById("menu").appendChild(div_KelKal);
+            sel_KelKal = document.createElement('select');
+            sel_KelKal.multiple = true;
+            sel_KelKal.size = 10;
+            sel_KelKal.id = "sel_KelKal";
+            var KelKal_options_str = "<option value='' unselected></option>";
+            sel_KelKal.onchange = function(){filterFunc()};
+            KelKal_options_str  += '<option value="NULL">NULL</option>';
+            KelKal_options_str  += '<option value="Ambarketawang">Ambarketawang</option>';
+            KelKal_options_str  += '<option value="Baciro">Baciro</option>';
+            KelKal_options_str  += '<option value="Bangunharjo">Bangunharjo</option>';
+            KelKal_options_str  += '<option value="Banguntapan">Banguntapan</option>';
+            KelKal_options_str  += '<option value="Bantul">Bantul</option>';
+            KelKal_options_str  += '<option value="Banyuraden">Banyuraden</option>';
+            KelKal_options_str  += '<option value="Baturetno">Baturetno</option>';
+            KelKal_options_str  += '<option value="Bausasran">Bausasran</option>';
+            KelKal_options_str  += '<option value="Bener">Bener</option>';
+            KelKal_options_str  += '<option value="Bokoharjo">Bokoharjo</option>';
+            KelKal_options_str  += '<option value="Brontokusuman">Brontokusuman</option>';
+            KelKal_options_str  += '<option value="Bumijo">Bumijo</option>';
+            KelKal_options_str  += '<option value="Caturharjo">Caturharjo</option>';
+            KelKal_options_str  += '<option value="Caturtunggal">Caturtunggal</option>';
+            KelKal_options_str  += '<option value="Cokrodiningratan">Cokrodiningratan</option>';
+            KelKal_options_str  += '<option value="Congdongcatur">Congdongcatur</option>';
+            KelKal_options_str  += '<option value="Danurejan">Danurejan</option>';
+            KelKal_options_str  += '<option value="Demangan">Demangan</option>';
+            KelKal_options_str  += '<option value="Gedongkiwo">Gedongkiwo</option>';
+            KelKal_options_str  += '<option value="Gowongan">Gowongan</option>';
+            KelKal_options_str  += '<option value="Gunungketur">Gunungketur</option>';
+            KelKal_options_str  += '<option value="Hargobinangun">Hargobinangun</option>';
+            KelKal_options_str  += '<option value="Imogiri">Imogiri</option>';
+            KelKal_options_str  += '<option value="Kalasan">Kalasan</option>';
+            KelKal_options_str  += '<option value="Kalitirto">Kalitirto</option>';
+            KelKal_options_str  += '<option value="Karangwaru">Karangwaru</option>';
+            KelKal_options_str  += '<option value="Kasihan">Kasihan</option>';
+            KelKal_options_str  += '<option value="Keparakan">Keparakan</option>';
+            KelKal_options_str  += '<option value="Klitren">Klitren</option>';
+            KelKal_options_str  += '<option value="Kotabaru">Kotabaru</option>';
+            KelKal_options_str  += '<option value="Kricak">Kricak</option>';
+            KelKal_options_str  += '<option value="Madurejo">Madurejo</option>';
+            KelKal_options_str  += '<option value="Maguwoharjo">Maguwoharjo</option>';
+            KelKal_options_str  += '<option value="Mantrijeron">Mantrijeron</option>';
+            KelKal_options_str  += '<option value="Minomartani">Minomartani</option>';
+            KelKal_options_str  += '<option value="Mujamuju">Mujamuju</option>';
+            KelKal_options_str  += '<option value="Ngampilan">Ngampilan</option>';
+            KelKal_options_str  += '<option value="Ngestiharjo">Ngestiharjo</option>';
+            KelKal_options_str  += '<option value="Ngupasan">Ngupasan</option>';
+            KelKal_options_str  += '<option value="Notoprajan">Notoprajan</option>';
+            KelKal_options_str  += '<option value="Pakembinangun">Pakembinangun</option>';
+            KelKal_options_str  += '<option value="Pakuncen">Pakuncen</option>';
+            KelKal_options_str  += '<option value="Pandeyan">Pandeyan</option>';
+            KelKal_options_str  += '<option value="Panembahan">Panembahan</option>';
+            KelKal_options_str  += '<option value="Panggungharjo">Panggungharjo</option>';
+            KelKal_options_str  += '<option value="Parangtritis">Parangtritis</option>';
+            KelKal_options_str  += '<option value="Patangpuluhan">Patangpuluhan</option>';
+            KelKal_options_str  += '<option value="Pleret">Pleret</option>';
+            KelKal_options_str  += '<option value="Potorono">Potorono</option>';
+            KelKal_options_str  += '<option value="Prawirodirjan">Prawirodirjan</option>';
+            KelKal_options_str  += '<option value="Prenggan">Prenggan</option>';
+            KelKal_options_str  += '<option value="Pringgokusuman">Pringgokusuman</option>';
+            KelKal_options_str  += '<option value="Purwodiningratan">Purwodiningratan</option>';
+            KelKal_options_str  += '<option value="Purwokinanti">Purwokinanti</option>';
+            KelKal_options_str  += '<option value="Purwomartani">Purwomartani</option>';
+            KelKal_options_str  += '<option value="Rejowinangun">Rejowinangun</option>';
+            KelKal_options_str  += '<option value="Sardonoharjo">Sardonoharjo</option>';
+            KelKal_options_str  += '<option value="Sariharjo">Sariharjo</option>';
+            KelKal_options_str  += '<option value="Semaki">Semaki</option>';
+            KelKal_options_str  += '<option value="Sendangadi">Sendangadi</option>';
+            KelKal_options_str  += '<option value="Sidomulyo">Sidomulyo</option>';
+            KelKal_options_str  += '<option value="Sinduadi">Sinduadi</option>';
+            KelKal_options_str  += '<option value="Sitimulyo">Sitimulyo</option>';
+            KelKal_options_str  += '<option value="Sorosutan">Sorosutan</option>';
+            KelKal_options_str  += '<option value="Sosromenduran">Sosromenduran</option>';
+            KelKal_options_str  += '<option value="Srihardono">Srihardono</option>';
+            KelKal_options_str  += '<option value="Sukoharjo">Sukoharjo</option>';
+            KelKal_options_str  += '<option value="Sumberadi">Sumberadi</option>';
+            KelKal_options_str  += '<option value="Sumberharjo">Sumberharjo</option>';
+            KelKal_options_str  += '<option value="Sumbermulyo">Sumbermulyo</option>';
+            KelKal_options_str  += '<option value="Suryatmajan">Suryatmajan</option>';
+            KelKal_options_str  += '<option value="Suryodiningratan">Suryodiningratan</option>';
+            KelKal_options_str  += '<option value="Tahunan">Tahunan</option>';
+            KelKal_options_str  += '<option value="Tamanmartani">Tamanmartani</option>';
+            KelKal_options_str  += '<option value="Tamantirto">Tamantirto</option>';
+            KelKal_options_str  += '<option value="Tegalpanggung">Tegalpanggung</option>';
+            KelKal_options_str  += '<option value="Tegalrejo">Tegalrejo</option>';
+            KelKal_options_str  += '<option value="Terban">Terban</option>';
+            KelKal_options_str  += '<option value="Tirtonirmolo">Tirtonirmolo</option>';
+            KelKal_options_str  += '<option value="Tlogoadi">Tlogoadi</option>';
+            KelKal_options_str  += '<option value="Tridadi">Tridadi</option>';
+            KelKal_options_str  += '<option value="Trihanggo">Trihanggo</option>';
+            KelKal_options_str  += '<option value="Trirenggo">Trirenggo</option>';
+            KelKal_options_str  += '<option value="Umbulmartani">Umbulmartani</option>';
+            KelKal_options_str  += '<option value="Warungboto">Warungboto</option>';
+            KelKal_options_str  += '<option value="Wates">Wates</option>';
+            KelKal_options_str  += '<option value="Wedomartani">Wedomartani</option>';
+            KelKal_options_str  += '<option value="Wirobrajan">Wirobrajan</option>';
+            KelKal_options_str  += '<option value="Wirogunan">Wirogunan</option>';
+            KelKal_options_str  += '<option value="Wonokromo">Wonokromo</option>';
+            sel_KelKal.innerHTML = KelKal_options_str;
+            div_KelKal.appendChild(sel_KelKal);
+            var lab_KelKal = document.createElement('div');
+            lab_KelKal.innerHTML = 'Kel/Kal';
+            lab_KelKal.className = 'filterlabel';
+            div_KelKal.appendChild(lab_KelKal);
+            var reset_KelKal = document.createElement('div');
+            reset_KelKal.innerHTML = 'clear filter';
+            reset_KelKal.className = 'filterlabel';
+            reset_KelKal.onclick = function() {
+                var options = document.getElementById("sel_KelKal").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_KelKal.appendChild(reset_KelKal);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_NoUrut = document.createElement('div');
+            div_NoUrut.id = "div_NoUrut";
+            div_NoUrut.className= "filterselect";
+            document.getElementById("menu").appendChild(div_NoUrut);
+            sel_NoUrut = document.createElement('select');
+            sel_NoUrut.multiple = true;
+            sel_NoUrut.size = 10;
+            sel_NoUrut.id = "sel_NoUrut";
+            var NoUrut_options_str = "<option value='' unselected></option>";
+            sel_NoUrut.onchange = function(){filterFunc()};
+            NoUrut_options_str  += '<option value="1">1</option>';
+            NoUrut_options_str  += '<option value="10">10</option>';
+            NoUrut_options_str  += '<option value="100">100</option>';
+            NoUrut_options_str  += '<option value="101">101</option>';
+            NoUrut_options_str  += '<option value="102">102</option>';
+            NoUrut_options_str  += '<option value="103">103</option>';
+            NoUrut_options_str  += '<option value="104">104</option>';
+            NoUrut_options_str  += '<option value="105">105</option>';
+            NoUrut_options_str  += '<option value="106">106</option>';
+            NoUrut_options_str  += '<option value="107">107</option>';
+            NoUrut_options_str  += '<option value="108">108</option>';
+            NoUrut_options_str  += '<option value="109">109</option>';
+            NoUrut_options_str  += '<option value="11">11</option>';
+            NoUrut_options_str  += '<option value="110">110</option>';
+            NoUrut_options_str  += '<option value="111">111</option>';
+            NoUrut_options_str  += '<option value="112">112</option>';
+            NoUrut_options_str  += '<option value="113">113</option>';
+            NoUrut_options_str  += '<option value="114">114</option>';
+            NoUrut_options_str  += '<option value="115">115</option>';
+            NoUrut_options_str  += '<option value="116">116</option>';
+            NoUrut_options_str  += '<option value="117">117</option>';
+            NoUrut_options_str  += '<option value="118">118</option>';
+            NoUrut_options_str  += '<option value="119">119</option>';
+            NoUrut_options_str  += '<option value="12">12</option>';
+            NoUrut_options_str  += '<option value="120">120</option>';
+            NoUrut_options_str  += '<option value="121">121</option>';
+            NoUrut_options_str  += '<option value="122">122</option>';
+            NoUrut_options_str  += '<option value="123">123</option>';
+            NoUrut_options_str  += '<option value="124">124</option>';
+            NoUrut_options_str  += '<option value="125">125</option>';
+            NoUrut_options_str  += '<option value="126">126</option>';
+            NoUrut_options_str  += '<option value="127">127</option>';
+            NoUrut_options_str  += '<option value="128">128</option>';
+            NoUrut_options_str  += '<option value="129">129</option>';
+            NoUrut_options_str  += '<option value="13">13</option>';
+            NoUrut_options_str  += '<option value="130">130</option>';
+            NoUrut_options_str  += '<option value="131">131</option>';
+            NoUrut_options_str  += '<option value="132">132</option>';
+            NoUrut_options_str  += '<option value="133">133</option>';
+            NoUrut_options_str  += '<option value="134">134</option>';
+            NoUrut_options_str  += '<option value="135">135</option>';
+            NoUrut_options_str  += '<option value="136">136</option>';
+            NoUrut_options_str  += '<option value="137">137</option>';
+            NoUrut_options_str  += '<option value="138">138</option>';
+            NoUrut_options_str  += '<option value="14">14</option>';
+            NoUrut_options_str  += '<option value="140">140</option>';
+            NoUrut_options_str  += '<option value="141">141</option>';
+            NoUrut_options_str  += '<option value="142">142</option>';
+            NoUrut_options_str  += '<option value="143">143</option>';
+            NoUrut_options_str  += '<option value="144">144</option>';
+            NoUrut_options_str  += '<option value="145">145</option>';
+            NoUrut_options_str  += '<option value="146">146</option>';
+            NoUrut_options_str  += '<option value="147">147</option>';
+            NoUrut_options_str  += '<option value="148">148</option>';
+            NoUrut_options_str  += '<option value="149">149</option>';
+            NoUrut_options_str  += '<option value="15">15</option>';
+            NoUrut_options_str  += '<option value="150">150</option>';
+            NoUrut_options_str  += '<option value="151">151</option>';
+            NoUrut_options_str  += '<option value="152">152</option>';
+            NoUrut_options_str  += '<option value="153">153</option>';
+            NoUrut_options_str  += '<option value="154">154</option>';
+            NoUrut_options_str  += '<option value="155">155</option>';
+            NoUrut_options_str  += '<option value="156">156</option>';
+            NoUrut_options_str  += '<option value="157">157</option>';
+            NoUrut_options_str  += '<option value="158">158</option>';
+            NoUrut_options_str  += '<option value="159">159</option>';
+            NoUrut_options_str  += '<option value="16">16</option>';
+            NoUrut_options_str  += '<option value="160">160</option>';
+            NoUrut_options_str  += '<option value="161">161</option>';
+            NoUrut_options_str  += '<option value="162">162</option>';
+            NoUrut_options_str  += '<option value="163">163</option>';
+            NoUrut_options_str  += '<option value="164">164</option>';
+            NoUrut_options_str  += '<option value="165">165</option>';
+            NoUrut_options_str  += '<option value="166">166</option>';
+            NoUrut_options_str  += '<option value="167">167</option>';
+            NoUrut_options_str  += '<option value="168">168</option>';
+            NoUrut_options_str  += '<option value="169">169</option>';
+            NoUrut_options_str  += '<option value="17">17</option>';
+            NoUrut_options_str  += '<option value="170">170</option>';
+            NoUrut_options_str  += '<option value="171">171</option>';
+            NoUrut_options_str  += '<option value="172">172</option>';
+            NoUrut_options_str  += '<option value="173">173</option>';
+            NoUrut_options_str  += '<option value="174">174</option>';
+            NoUrut_options_str  += '<option value="175">175</option>';
+            NoUrut_options_str  += '<option value="176">176</option>';
+            NoUrut_options_str  += '<option value="177">177</option>';
+            NoUrut_options_str  += '<option value="178">178</option>';
+            NoUrut_options_str  += '<option value="179">179</option>';
+            NoUrut_options_str  += '<option value="18">18</option>';
+            NoUrut_options_str  += '<option value="180">180</option>';
+            NoUrut_options_str  += '<option value="181">181</option>';
+            NoUrut_options_str  += '<option value="182">182</option>';
+            NoUrut_options_str  += '<option value="183">183</option>';
+            NoUrut_options_str  += '<option value="184">184</option>';
+            NoUrut_options_str  += '<option value="185">185</option>';
+            NoUrut_options_str  += '<option value="186">186</option>';
+            NoUrut_options_str  += '<option value="187">187</option>';
+            NoUrut_options_str  += '<option value="188">188</option>';
+            NoUrut_options_str  += '<option value="189">189</option>';
+            NoUrut_options_str  += '<option value="19">19</option>';
+            NoUrut_options_str  += '<option value="190">190</option>';
+            NoUrut_options_str  += '<option value="191">191</option>';
+            NoUrut_options_str  += '<option value="192">192</option>';
+            NoUrut_options_str  += '<option value="193">193</option>';
+            NoUrut_options_str  += '<option value="194">194</option>';
+            NoUrut_options_str  += '<option value="195">195</option>';
+            NoUrut_options_str  += '<option value="196">196</option>';
+            NoUrut_options_str  += '<option value="197">197</option>';
+            NoUrut_options_str  += '<option value="198">198</option>';
+            NoUrut_options_str  += '<option value="199">199</option>';
+            NoUrut_options_str  += '<option value="2">2</option>';
+            NoUrut_options_str  += '<option value="20">20</option>';
+            NoUrut_options_str  += '<option value="200">200</option>';
+            NoUrut_options_str  += '<option value="201">201</option>';
+            NoUrut_options_str  += '<option value="202">202</option>';
+            NoUrut_options_str  += '<option value="203">203</option>';
+            NoUrut_options_str  += '<option value="204">204</option>';
+            NoUrut_options_str  += '<option value="206">206</option>';
+            NoUrut_options_str  += '<option value="207">207</option>';
+            NoUrut_options_str  += '<option value="208">208</option>';
+            NoUrut_options_str  += '<option value="209">209</option>';
+            NoUrut_options_str  += '<option value="21">21</option>';
+            NoUrut_options_str  += '<option value="210">210</option>';
+            NoUrut_options_str  += '<option value="211">211</option>';
+            NoUrut_options_str  += '<option value="212">212</option>';
+            NoUrut_options_str  += '<option value="213">213</option>';
+            NoUrut_options_str  += '<option value="214">214</option>';
+            NoUrut_options_str  += '<option value="215">215</option>';
+            NoUrut_options_str  += '<option value="216">216</option>';
+            NoUrut_options_str  += '<option value="217">217</option>';
+            NoUrut_options_str  += '<option value="218">218</option>';
+            NoUrut_options_str  += '<option value="22">22</option>';
+            NoUrut_options_str  += '<option value="220">220</option>';
+            NoUrut_options_str  += '<option value="221">221</option>';
+            NoUrut_options_str  += '<option value="222">222</option>';
+            NoUrut_options_str  += '<option value="223">223</option>';
+            NoUrut_options_str  += '<option value="224">224</option>';
+            NoUrut_options_str  += '<option value="225">225</option>';
+            NoUrut_options_str  += '<option value="226">226</option>';
+            NoUrut_options_str  += '<option value="227">227</option>';
+            NoUrut_options_str  += '<option value="228">228</option>';
+            NoUrut_options_str  += '<option value="229">229</option>';
+            NoUrut_options_str  += '<option value="23">23</option>';
+            NoUrut_options_str  += '<option value="230">230</option>';
+            NoUrut_options_str  += '<option value="231">231</option>';
+            NoUrut_options_str  += '<option value="232">232</option>';
+            NoUrut_options_str  += '<option value="233">233</option>';
+            NoUrut_options_str  += '<option value="234">234</option>';
+            NoUrut_options_str  += '<option value="235">235</option>';
+            NoUrut_options_str  += '<option value="236">236</option>';
+            NoUrut_options_str  += '<option value="237">237</option>';
+            NoUrut_options_str  += '<option value="238">238</option>';
+            NoUrut_options_str  += '<option value="239">239</option>';
+            NoUrut_options_str  += '<option value="24">24</option>';
+            NoUrut_options_str  += '<option value="240">240</option>';
+            NoUrut_options_str  += '<option value="241">241</option>';
+            NoUrut_options_str  += '<option value="242">242</option>';
+            NoUrut_options_str  += '<option value="243">243</option>';
+            NoUrut_options_str  += '<option value="244">244</option>';
+            NoUrut_options_str  += '<option value="245">245</option>';
+            NoUrut_options_str  += '<option value="246">246</option>';
+            NoUrut_options_str  += '<option value="247">247</option>';
+            NoUrut_options_str  += '<option value="248">248</option>';
+            NoUrut_options_str  += '<option value="249">249</option>';
+            NoUrut_options_str  += '<option value="25">25</option>';
+            NoUrut_options_str  += '<option value="250">250</option>';
+            NoUrut_options_str  += '<option value="251">251</option>';
+            NoUrut_options_str  += '<option value="252">252</option>';
+            NoUrut_options_str  += '<option value="253">253</option>';
+            NoUrut_options_str  += '<option value="254">254</option>';
+            NoUrut_options_str  += '<option value="255">255</option>';
+            NoUrut_options_str  += '<option value="256">256</option>';
+            NoUrut_options_str  += '<option value="257">257</option>';
+            NoUrut_options_str  += '<option value="258">258</option>';
+            NoUrut_options_str  += '<option value="259">259</option>';
+            NoUrut_options_str  += '<option value="26">26</option>';
+            NoUrut_options_str  += '<option value="260">260</option>';
+            NoUrut_options_str  += '<option value="261">261</option>';
+            NoUrut_options_str  += '<option value="262">262</option>';
+            NoUrut_options_str  += '<option value="263">263</option>';
+            NoUrut_options_str  += '<option value="264">264</option>';
+            NoUrut_options_str  += '<option value="265">265</option>';
+            NoUrut_options_str  += '<option value="267">267</option>';
+            NoUrut_options_str  += '<option value="268">268</option>';
+            NoUrut_options_str  += '<option value="269">269</option>';
+            NoUrut_options_str  += '<option value="27">27</option>';
+            NoUrut_options_str  += '<option value="270">270</option>';
+            NoUrut_options_str  += '<option value="271">271</option>';
+            NoUrut_options_str  += '<option value="272">272</option>';
+            NoUrut_options_str  += '<option value="273">273</option>';
+            NoUrut_options_str  += '<option value="274">274</option>';
+            NoUrut_options_str  += '<option value="275">275</option>';
+            NoUrut_options_str  += '<option value="277">277</option>';
+            NoUrut_options_str  += '<option value="278">278</option>';
+            NoUrut_options_str  += '<option value="279">279</option>';
+            NoUrut_options_str  += '<option value="28">28</option>';
+            NoUrut_options_str  += '<option value="280">280</option>';
+            NoUrut_options_str  += '<option value="281">281</option>';
+            NoUrut_options_str  += '<option value="282">282</option>';
+            NoUrut_options_str  += '<option value="283">283</option>';
+            NoUrut_options_str  += '<option value="284">284</option>';
+            NoUrut_options_str  += '<option value="286">286</option>';
+            NoUrut_options_str  += '<option value="287">287</option>';
+            NoUrut_options_str  += '<option value="288">288</option>';
+            NoUrut_options_str  += '<option value="289">289</option>';
+            NoUrut_options_str  += '<option value="29">29</option>';
+            NoUrut_options_str  += '<option value="290">290</option>';
+            NoUrut_options_str  += '<option value="291">291</option>';
+            NoUrut_options_str  += '<option value="292">292</option>';
+            NoUrut_options_str  += '<option value="293">293</option>';
+            NoUrut_options_str  += '<option value="295">295</option>';
+            NoUrut_options_str  += '<option value="296">296</option>';
+            NoUrut_options_str  += '<option value="297">297</option>';
+            NoUrut_options_str  += '<option value="298">298</option>';
+            NoUrut_options_str  += '<option value="299">299</option>';
+            NoUrut_options_str  += '<option value="3">3</option>';
+            NoUrut_options_str  += '<option value="30">30</option>';
+            NoUrut_options_str  += '<option value="300">300</option>';
+            NoUrut_options_str  += '<option value="301">301</option>';
+            NoUrut_options_str  += '<option value="302">302</option>';
+            NoUrut_options_str  += '<option value="303">303</option>';
+            NoUrut_options_str  += '<option value="304">304</option>';
+            NoUrut_options_str  += '<option value="305">305</option>';
+            NoUrut_options_str  += '<option value="306">306</option>';
+            NoUrut_options_str  += '<option value="307">307</option>';
+            NoUrut_options_str  += '<option value="308">308</option>';
+            NoUrut_options_str  += '<option value="309">309</option>';
+            NoUrut_options_str  += '<option value="31">31</option>';
+            NoUrut_options_str  += '<option value="310">310</option>';
+            NoUrut_options_str  += '<option value="311">311</option>';
+            NoUrut_options_str  += '<option value="312">312</option>';
+            NoUrut_options_str  += '<option value="313">313</option>';
+            NoUrut_options_str  += '<option value="314">314</option>';
+            NoUrut_options_str  += '<option value="315">315</option>';
+            NoUrut_options_str  += '<option value="316">316</option>';
+            NoUrut_options_str  += '<option value="317">317</option>';
+            NoUrut_options_str  += '<option value="318">318</option>';
+            NoUrut_options_str  += '<option value="319">319</option>';
+            NoUrut_options_str  += '<option value="32">32</option>';
+            NoUrut_options_str  += '<option value="320">320</option>';
+            NoUrut_options_str  += '<option value="321">321</option>';
+            NoUrut_options_str  += '<option value="324">324</option>';
+            NoUrut_options_str  += '<option value="325">325</option>';
+            NoUrut_options_str  += '<option value="326">326</option>';
+            NoUrut_options_str  += '<option value="327">327</option>';
+            NoUrut_options_str  += '<option value="328">328</option>';
+            NoUrut_options_str  += '<option value="329">329</option>';
+            NoUrut_options_str  += '<option value="33">33</option>';
+            NoUrut_options_str  += '<option value="330">330</option>';
+            NoUrut_options_str  += '<option value="331">331</option>';
+            NoUrut_options_str  += '<option value="332">332</option>';
+            NoUrut_options_str  += '<option value="333">333</option>';
+            NoUrut_options_str  += '<option value="334">334</option>';
+            NoUrut_options_str  += '<option value="335">335</option>';
+            NoUrut_options_str  += '<option value="336">336</option>';
+            NoUrut_options_str  += '<option value="337">337</option>';
+            NoUrut_options_str  += '<option value="339">339</option>';
+            NoUrut_options_str  += '<option value="34">34</option>';
+            NoUrut_options_str  += '<option value="340">340</option>';
+            NoUrut_options_str  += '<option value="341">341</option>';
+            NoUrut_options_str  += '<option value="342">342</option>';
+            NoUrut_options_str  += '<option value="343">343</option>';
+            NoUrut_options_str  += '<option value="344">344</option>';
+            NoUrut_options_str  += '<option value="345">345</option>';
+            NoUrut_options_str  += '<option value="346">346</option>';
+            NoUrut_options_str  += '<option value="347">347</option>';
+            NoUrut_options_str  += '<option value="348">348</option>';
+            NoUrut_options_str  += '<option value="349">349</option>';
+            NoUrut_options_str  += '<option value="35">35</option>';
+            NoUrut_options_str  += '<option value="350">350</option>';
+            NoUrut_options_str  += '<option value="352">352</option>';
+            NoUrut_options_str  += '<option value="353">353</option>';
+            NoUrut_options_str  += '<option value="354">354</option>';
+            NoUrut_options_str  += '<option value="355">355</option>';
+            NoUrut_options_str  += '<option value="356">356</option>';
+            NoUrut_options_str  += '<option value="357">357</option>';
+            NoUrut_options_str  += '<option value="358">358</option>';
+            NoUrut_options_str  += '<option value="359">359</option>';
+            NoUrut_options_str  += '<option value="36">36</option>';
+            NoUrut_options_str  += '<option value="360">360</option>';
+            NoUrut_options_str  += '<option value="361">361</option>';
+            NoUrut_options_str  += '<option value="362">362</option>';
+            NoUrut_options_str  += '<option value="363">363</option>';
+            NoUrut_options_str  += '<option value="364">364</option>';
+            NoUrut_options_str  += '<option value="365">365</option>';
+            NoUrut_options_str  += '<option value="366">366</option>';
+            NoUrut_options_str  += '<option value="367">367</option>';
+            NoUrut_options_str  += '<option value="368">368</option>';
+            NoUrut_options_str  += '<option value="369">369</option>';
+            NoUrut_options_str  += '<option value="37">37</option>';
+            NoUrut_options_str  += '<option value="370">370</option>';
+            NoUrut_options_str  += '<option value="371">371</option>';
+            NoUrut_options_str  += '<option value="372">372</option>';
+            NoUrut_options_str  += '<option value="373">373</option>';
+            NoUrut_options_str  += '<option value="374">374</option>';
+            NoUrut_options_str  += '<option value="375">375</option>';
+            NoUrut_options_str  += '<option value="376">376</option>';
+            NoUrut_options_str  += '<option value="377">377</option>';
+            NoUrut_options_str  += '<option value="378">378</option>';
+            NoUrut_options_str  += '<option value="379">379</option>';
+            NoUrut_options_str  += '<option value="38">38</option>';
+            NoUrut_options_str  += '<option value="380">380</option>';
+            NoUrut_options_str  += '<option value="381">381</option>';
+            NoUrut_options_str  += '<option value="382">382</option>';
+            NoUrut_options_str  += '<option value="385">385</option>';
+            NoUrut_options_str  += '<option value="386">386</option>';
+            NoUrut_options_str  += '<option value="387">387</option>';
+            NoUrut_options_str  += '<option value="388">388</option>';
+            NoUrut_options_str  += '<option value="389">389</option>';
+            NoUrut_options_str  += '<option value="39">39</option>';
+            NoUrut_options_str  += '<option value="390">390</option>';
+            NoUrut_options_str  += '<option value="391">391</option>';
+            NoUrut_options_str  += '<option value="392">392</option>';
+            NoUrut_options_str  += '<option value="393">393</option>';
+            NoUrut_options_str  += '<option value="394">394</option>';
+            NoUrut_options_str  += '<option value="395">395</option>';
+            NoUrut_options_str  += '<option value="396">396</option>';
+            NoUrut_options_str  += '<option value="397">397</option>';
+            NoUrut_options_str  += '<option value="398">398</option>';
+            NoUrut_options_str  += '<option value="399">399</option>';
+            NoUrut_options_str  += '<option value="4">4</option>';
+            NoUrut_options_str  += '<option value="40">40</option>';
+            NoUrut_options_str  += '<option value="400">400</option>';
+            NoUrut_options_str  += '<option value="401">401</option>';
+            NoUrut_options_str  += '<option value="403">403</option>';
+            NoUrut_options_str  += '<option value="404">404</option>';
+            NoUrut_options_str  += '<option value="405">405</option>';
+            NoUrut_options_str  += '<option value="406">406</option>';
+            NoUrut_options_str  += '<option value="407">407</option>';
+            NoUrut_options_str  += '<option value="408">408</option>';
+            NoUrut_options_str  += '<option value="409">409</option>';
+            NoUrut_options_str  += '<option value="41">41</option>';
+            NoUrut_options_str  += '<option value="42">42</option>';
+            NoUrut_options_str  += '<option value="43">43</option>';
+            NoUrut_options_str  += '<option value="44">44</option>';
+            NoUrut_options_str  += '<option value="45">45</option>';
+            NoUrut_options_str  += '<option value="46">46</option>';
+            NoUrut_options_str  += '<option value="47">47</option>';
+            NoUrut_options_str  += '<option value="48">48</option>';
+            NoUrut_options_str  += '<option value="49">49</option>';
+            NoUrut_options_str  += '<option value="5">5</option>';
+            NoUrut_options_str  += '<option value="50">50</option>';
+            NoUrut_options_str  += '<option value="51">51</option>';
+            NoUrut_options_str  += '<option value="52">52</option>';
+            NoUrut_options_str  += '<option value="53">53</option>';
+            NoUrut_options_str  += '<option value="54">54</option>';
+            NoUrut_options_str  += '<option value="55">55</option>';
+            NoUrut_options_str  += '<option value="56">56</option>';
+            NoUrut_options_str  += '<option value="57">57</option>';
+            NoUrut_options_str  += '<option value="58">58</option>';
+            NoUrut_options_str  += '<option value="59">59</option>';
+            NoUrut_options_str  += '<option value="6">6</option>';
+            NoUrut_options_str  += '<option value="60">60</option>';
+            NoUrut_options_str  += '<option value="61">61</option>';
+            NoUrut_options_str  += '<option value="62">62</option>';
+            NoUrut_options_str  += '<option value="63">63</option>';
+            NoUrut_options_str  += '<option value="64">64</option>';
+            NoUrut_options_str  += '<option value="65">65</option>';
+            NoUrut_options_str  += '<option value="66">66</option>';
+            NoUrut_options_str  += '<option value="67">67</option>';
+            NoUrut_options_str  += '<option value="68">68</option>';
+            NoUrut_options_str  += '<option value="69">69</option>';
+            NoUrut_options_str  += '<option value="7">7</option>';
+            NoUrut_options_str  += '<option value="70">70</option>';
+            NoUrut_options_str  += '<option value="71">71</option>';
+            NoUrut_options_str  += '<option value="72">72</option>';
+            NoUrut_options_str  += '<option value="73">73</option>';
+            NoUrut_options_str  += '<option value="74">74</option>';
+            NoUrut_options_str  += '<option value="75">75</option>';
+            NoUrut_options_str  += '<option value="76">76</option>';
+            NoUrut_options_str  += '<option value="77">77</option>';
+            NoUrut_options_str  += '<option value="78">78</option>';
+            NoUrut_options_str  += '<option value="79">79</option>';
+            NoUrut_options_str  += '<option value="8">8</option>';
+            NoUrut_options_str  += '<option value="80">80</option>';
+            NoUrut_options_str  += '<option value="81">81</option>';
+            NoUrut_options_str  += '<option value="82">82</option>';
+            NoUrut_options_str  += '<option value="83">83</option>';
+            NoUrut_options_str  += '<option value="84">84</option>';
+            NoUrut_options_str  += '<option value="85">85</option>';
+            NoUrut_options_str  += '<option value="86">86</option>';
+            NoUrut_options_str  += '<option value="87">87</option>';
+            NoUrut_options_str  += '<option value="88">88</option>';
+            NoUrut_options_str  += '<option value="89">89</option>';
+            NoUrut_options_str  += '<option value="9">9</option>';
+            NoUrut_options_str  += '<option value="90">90</option>';
+            NoUrut_options_str  += '<option value="91">91</option>';
+            NoUrut_options_str  += '<option value="92">92</option>';
+            NoUrut_options_str  += '<option value="93">93</option>';
+            NoUrut_options_str  += '<option value="94">94</option>';
+            NoUrut_options_str  += '<option value="95">95</option>';
+            NoUrut_options_str  += '<option value="96">96</option>';
+            NoUrut_options_str  += '<option value="97">97</option>';
+            NoUrut_options_str  += '<option value="98">98</option>';
+            NoUrut_options_str  += '<option value="99">99</option>';
+            sel_NoUrut.innerHTML = NoUrut_options_str;
+            div_NoUrut.appendChild(sel_NoUrut);
+            var lab_NoUrut = document.createElement('div');
+            lab_NoUrut.innerHTML = 'No. Urut';
+            lab_NoUrut.className = 'filterlabel';
+            div_NoUrut.appendChild(lab_NoUrut);
+            var reset_NoUrut = document.createElement('div');
+            reset_NoUrut.innerHTML = 'clear filter';
+            reset_NoUrut.className = 'filterlabel';
+            reset_NoUrut.onclick = function() {
+                var options = document.getElementById("sel_NoUrut").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_NoUrut.appendChild(reset_NoUrut);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Penerima = document.createElement('div');
+            div_Penerima.id = "div_Penerima";
+            div_Penerima.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Penerima);
+            sel_Penerima = document.createElement('select');
+            sel_Penerima.multiple = true;
+            sel_Penerima.size = 10;
+            sel_Penerima.id = "sel_Penerima";
+            var Penerima_options_str = "<option value='' unselected></option>";
+            sel_Penerima.onchange = function(){filterFunc()};
+            Penerima_options_str  += '<option value="NULL">NULL</option>';
+            Penerima_options_str  += '<option value="ACHMAD SOLIHIN">ACHMAD SOLIHIN</option>';
+            Penerima_options_str  += '<option value="AGUS SW">AGUS SW</option>';
+            Penerima_options_str  += '<option value="AGUS TOBERIHARTO">AGUS TOBERIHARTO</option>';
+            Penerima_options_str  += '<option value="ALBERTUS BENNI">ALBERTUS BENNI</option>';
+            Penerima_options_str  += '<option value="ALDY">ALDY</option>';
+            Penerima_options_str  += '<option value="ALOY SOENARWAN">ALOY SOENARWAN</option>';
+            Penerima_options_str  += '<option value="ANAN FERGAS">ANAN FERGAS</option>';
+            Penerima_options_str  += '<option value="ANDREAS DENNY">ANDREAS DENNY</option>';
+            Penerima_options_str  += '<option value="ANDREAS WAHYU">ANDREAS WAHYU</option>';
+            Penerima_options_str  += '<option value="ANDRIANI">ANDRIANI</option>';
+            Penerima_options_str  += '<option value="ANI">ANI</option>';
+            Penerima_options_str  += '<option value="ANIS IZZA">ANIS IZZA</option>';
+            Penerima_options_str  += '<option value="ANNA MARIA">ANNA MARIA</option>';
+            Penerima_options_str  += '<option value="ANNISA AFAN">ANNISA AFAN</option>';
+            Penerima_options_str  += '<option value="ANTON SAPUTRO">ANTON SAPUTRO</option>';
+            Penerima_options_str  += '<option value="ARDINILA">ARDINILA</option>';
+            Penerima_options_str  += '<option value="ARDINILA NUGRAHANINGTYAS">ARDINILA NUGRAHANINGTYAS</option>';
+            Penerima_options_str  += '<option value="ARIEF HARTONO">ARIEF HARTONO</option>';
+            Penerima_options_str  += '<option value="ASTRID MEGA AMMALIA">ASTRID MEGA AMMALIA</option>';
+            Penerima_options_str  += '<option value="BAMBANG H">BAMBANG H</option>';
+            Penerima_options_str  += '<option value="BAMBANG NUGROHO">BAMBANG NUGROHO</option>';
+            Penerima_options_str  += '<option value="BENY SANTOSO">BENY SANTOSO</option>';
+            Penerima_options_str  += '<option value="CHRISTINA TJ">CHRISTINA TJ</option>';
+            Penerima_options_str  += '<option value="Christina Tjahjaningsih">Christina Tjahjaningsih</option>';
+            Penerima_options_str  += '<option value="DAVID SUGENG WIJAYA">DAVID SUGENG WIJAYA</option>';
+            Penerima_options_str  += '<option value="Dra. ASTARI SETYAWATI">Dra. ASTARI SETYAWATI</option>';
+            Penerima_options_str  += '<option value="EMANUEL DANU PRIMANTO">EMANUEL DANU PRIMANTO</option>';
+            Penerima_options_str  += '<option value="EMILIA SELVIAYULI">EMILIA SELVIAYULI</option>';
+            Penerima_options_str  += '<option value="FAHIMATUL ILYAH">FAHIMATUL ILYAH</option>';
+            Penerima_options_str  += '<option value="FATIH">FATIH</option>';
+            Penerima_options_str  += '<option value="FATYA KRISNA">FATYA KRISNA</option>';
+            Penerima_options_str  += '<option value="FITHRIYYA RIFANI">FITHRIYYA RIFANI</option>';
+            Penerima_options_str  += '<option value="FITRI MARDI">FITRI MARDI</option>';
+            Penerima_options_str  += '<option value="Fany W">Fany W</option>';
+            Penerima_options_str  += '<option value="GILANG">GILANG</option>';
+            Penerima_options_str  += '<option value="HINDARTO">HINDARTO</option>';
+            Penerima_options_str  += '<option value="Iwan Darmawan">Iwan Darmawan</option>';
+            Penerima_options_str  += '<option value="LANNY">LANNY</option>';
+            Penerima_options_str  += '<option value="LIEM MIANA IKAWATI">LIEM MIANA IKAWATI</option>';
+            Penerima_options_str  += '<option value="LIYA RANSANTI">LIYA RANSANTI</option>';
+            Penerima_options_str  += '<option value="Lina L.">Lina L.</option>';
+            Penerima_options_str  += '<option value="M. RUSDI">M. RUSDI</option>';
+            Penerima_options_str  += '<option value="MARTUTI PURNAWATI">MARTUTI PURNAWATI</option>';
+            Penerima_options_str  += '<option value="MARWANTO">MARWANTO</option>';
+            Penerima_options_str  += '<option value="MOCH. LUTFI">MOCH. LUTFI</option>';
+            Penerima_options_str  += '<option value="MURTINI WALUYO">MURTINI WALUYO</option>';
+            Penerima_options_str  += '<option value="NINIEK">NINIEK</option>';
+            Penerima_options_str  += '<option value="Nur Atsnan M">Nur Atsnan M</option>';
+            Penerima_options_str  += '<option value="PRATIKNO">PRATIKNO</option>';
+            Penerima_options_str  += '<option value="Perdana Hendra">Perdana Hendra</option>';
+            Penerima_options_str  += '<option value="Prihatmodewo">Prihatmodewo</option>';
+            Penerima_options_str  += '<option value="RANI">RANI</option>';
+            Penerima_options_str  += '<option value="RUBINI">RUBINI</option>';
+            Penerima_options_str  += '<option value="SATRIA AKBAR">SATRIA AKBAR</option>';
+            Penerima_options_str  += '<option value="SAYYIDAH UMROH M">SAYYIDAH UMROH M</option>';
+            Penerima_options_str  += '<option value="SOFIA RIENI">SOFIA RIENI</option>';
+            Penerima_options_str  += '<option value="SRI LESTARI">SRI LESTARI</option>';
+            Penerima_options_str  += '<option value="STEFANUS HUGO">STEFANUS HUGO</option>';
+            Penerima_options_str  += '<option value="SUGENG HARYADI">SUGENG HARYADI</option>';
+            Penerima_options_str  += '<option value="SUGIANTO">SUGIANTO</option>';
+            Penerima_options_str  += '<option value="SUGIARTO">SUGIARTO</option>';
+            Penerima_options_str  += '<option value="SUPARTINI">SUPARTINI</option>';
+            Penerima_options_str  += '<option value="SUWARNO">SUWARNO</option>';
+            Penerima_options_str  += '<option value="SWAVERTO ELRYDO">SWAVERTO ELRYDO</option>';
+            Penerima_options_str  += '<option value="SYLVIATI">SYLVIATI</option>';
+            Penerima_options_str  += '<option value="Saptono">Saptono</option>';
+            Penerima_options_str  += '<option value="Siek Jien Hwat">Siek Jien Hwat</option>';
+            Penerima_options_str  += '<option value="Sunaryo">Sunaryo</option>';
+            Penerima_options_str  += '<option value="Syamsuddin">Syamsuddin</option>';
+            Penerima_options_str  += '<option value="TANTY">TANTY</option>';
+            Penerima_options_str  += '<option value="TARDI WALUYO">TARDI WALUYO</option>';
+            Penerima_options_str  += '<option value="TETY TRIANY">TETY TRIANY</option>';
+            Penerima_options_str  += '<option value="TRI WAHYUDI">TRI WAHYUDI</option>';
+            Penerima_options_str  += '<option value="TUNJUNG HARJITO">TUNJUNG HARJITO</option>';
+            Penerima_options_str  += '<option value="WAHYUNINGSIH">WAHYUNINGSIH</option>';
+            Penerima_options_str  += '<option value="WILGE">WILGE</option>';
+            Penerima_options_str  += '<option value="Widodo Hariyono">Widodo Hariyono</option>';
+            Penerima_options_str  += '<option value="Y. Palem Purnomo">Y. Palem Purnomo</option>';
+            Penerima_options_str  += '<option value="YENNY">YENNY</option>';
+            Penerima_options_str  += '<option value="YULIANTO">YULIANTO</option>';
+            sel_Penerima.innerHTML = Penerima_options_str;
+            div_Penerima.appendChild(sel_Penerima);
+            var lab_Penerima = document.createElement('div');
+            lab_Penerima.innerHTML = 'Penerima';
+            lab_Penerima.className = 'filterlabel';
+            div_Penerima.appendChild(lab_Penerima);
+            var reset_Penerima = document.createElement('div');
+            reset_Penerima.innerHTML = 'clear filter';
+            reset_Penerima.className = 'filterlabel';
+            reset_Penerima.onclick = function() {
+                var options = document.getElementById("sel_Penerima").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_Penerima.appendChild(reset_Penerima);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_path = document.createElement('div');
+            div_path.id = "div_path";
+            div_path.className= "filterselect";
+            document.getElementById("menu").appendChild(div_path);
+            sel_path = document.createElement('select');
+            sel_path.multiple = true;
+            sel_path.size = 10;
+            sel_path.id = "sel_path";
+            var path_options_str = "<option value='' unselected></option>";
+            sel_path.onchange = function(){filterFunc()};
+            path_options_str  += '<option value="H:/DPTR Lain-Lain/2024/PLOTTING HGB/JOIN/2021/BANTUL_JOIN_2021_2.shp|layername=BANTUL_JOIN_2021_2">H:/DPTR Lain-Lain/2024/PLOTTING HGB/JOIN/2021/BANTUL_JOIN_2021_2.shp|layername=BANTUL_JOIN_2021_2</option>';
+            path_options_str  += '<option value="H:/DPTR Lain-Lain/2024/PLOTTING HGB/JOIN/2021/SLEMAN_JOIN_2021_2.shp|layername=SLEMAN_JOIN_2021_2">H:/DPTR Lain-Lain/2024/PLOTTING HGB/JOIN/2021/SLEMAN_JOIN_2021_2.shp|layername=SLEMAN_JOIN_2021_2</option>';
+            path_options_str  += '<option value="H:/DPTR Lain-Lain/2024/PLOTTING HGB/JOIN/2022/BANTUL_JOIN_2022.shp|layername=BANTUL_JOIN_2022">H:/DPTR Lain-Lain/2024/PLOTTING HGB/JOIN/2022/BANTUL_JOIN_2022.shp|layername=BANTUL_JOIN_2022</option>';
+            path_options_str  += '<option value="H:/DPTR Lain-Lain/2024/PLOTTING HGB/JOIN/2022/KOTA YOGYAKARTA_JOIN_2022.shp">H:/DPTR Lain-Lain/2024/PLOTTING HGB/JOIN/2022/KOTA YOGYAKARTA_JOIN_2022.shp</option>';
+            path_options_str  += '<option value="H:/DPTR Lain-Lain/2024/PLOTTING HGB/JOIN/2022/SLEMAN_JOIN_2022.shp|layername=SLEMAN_JOIN_2022">H:/DPTR Lain-Lain/2024/PLOTTING HGB/JOIN/2022/SLEMAN_JOIN_2022.shp|layername=SLEMAN_JOIN_2022</option>';
+            path_options_str  += '<option value="H:/DPTR Lain-Lain/2024/PLOTTING HGB/JOIN/2024/KOTA YOGYAKARTA_JOIN_2024.shp|layername=KOTA YOGYAKARTA_JOIN_2024">H:/DPTR Lain-Lain/2024/PLOTTING HGB/JOIN/2024/KOTA YOGYAKARTA_JOIN_2024.shp|layername=KOTA YOGYAKARTA_JOIN_2024</option>';
+            path_options_str  += '<option value="H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\2020\BANTUL_JOIN_2020.shp|layername=BANTUL_JOIN_2020">H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\2020\BANTUL_JOIN_2020.shp|layername=BANTUL_JOIN_2020</option>';
+            path_options_str  += '<option value="H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\2020\KOTA YOGYAKARTA_JOIN_2020.shp|layername=KOTA YOGYAKARTA_JOIN_2020">H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\2020\KOTA YOGYAKARTA_JOIN_2020.shp|layername=KOTA YOGYAKARTA_JOIN_2020</option>';
+            path_options_str  += '<option value="H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\2020\SLEMAN_JOIN_2020.shp|layername=SLEMAN_JOIN_2020">H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\2020\SLEMAN_JOIN_2020.shp|layername=SLEMAN_JOIN_2020</option>';
+            path_options_str  += '<option value="H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\2021\KOTA YOGYAKARTA_JOIN_2021_2.shp|layername=KOTA YOGYAKARTA_JOIN_2021_2">H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\2021\KOTA YOGYAKARTA_JOIN_2021_2.shp|layername=KOTA YOGYAKARTA_JOIN_2021_2</option>';
+            path_options_str  += '<option value="H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\2024\BANTUL_JOIN_2024.shp|layername=BANTUL_JOIN_2024">H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\2024\BANTUL_JOIN_2024.shp|layername=BANTUL_JOIN_2024</option>';
+            path_options_str  += '<option value="H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\2024\SLEMAN_JOIN_2024.shp|layername=SLEMAN_JOIN_2024">H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\2024\SLEMAN_JOIN_2024.shp|layername=SLEMAN_JOIN_2024</option>';
+            path_options_str  += '<option value="H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\BANTUL_JOIN_2023.shp|layername=BANTUL_JOIN_2023">H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\BANTUL_JOIN_2023.shp|layername=BANTUL_JOIN_2023</option>';
+            path_options_str  += '<option value="H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\KOTA YOGYAKARTA_JOIN_2023.shp|layername=KOTA YOGYAKARTA_JOIN_2023">H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\KOTA YOGYAKARTA_JOIN_2023.shp|layername=KOTA YOGYAKARTA_JOIN_2023</option>';
+            path_options_str  += '<option value="H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\KULON PROGO_JOIN_2023.shp|layername=KULON PROGO_JOIN_2023">H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\KULON PROGO_JOIN_2023.shp|layername=KULON PROGO_JOIN_2023</option>';
+            path_options_str  += '<option value="H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\SLEMAN_JOIN_2023.shp|layername=SLEMAN_JOIN_2023">H:\DPTR Lain-Lain\2024\PLOTTING HGB\JOIN\SLEMAN_JOIN_2023.shp|layername=SLEMAN_JOIN_2023</option>';
+            sel_path.innerHTML = path_options_str;
+            div_path.appendChild(sel_path);
+            var lab_path = document.createElement('div');
+            lab_path.innerHTML = 'path';
+            lab_path.className = 'filterlabel';
+            div_path.appendChild(lab_path);
+            var reset_path = document.createElement('div');
+            reset_path.innerHTML = 'clear filter';
+            reset_path.className = 'filterlabel';
+            reset_path.onclick = function() {
+                var options = document.getElementById("sel_path").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_path.appendChild(reset_path);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_KemKap = document.createElement('div');
+            div_KemKap.id = "div_KemKap";
+            div_KemKap.className= "filterselect";
+            document.getElementById("menu").appendChild(div_KemKap);
+            sel_KemKap = document.createElement('select');
+            sel_KemKap.multiple = true;
+            sel_KemKap.size = 10;
+            sel_KemKap.id = "sel_KemKap";
+            var KemKap_options_str = "<option value='' unselected></option>";
+            sel_KemKap.onchange = function(){filterFunc()};
+            KemKap_options_str  += '<option value="NULL">NULL</option>';
+            KemKap_options_str  += '<option value="Bambanglipuro">Bambanglipuro</option>';
+            KemKap_options_str  += '<option value="Banguntapan">Banguntapan</option>';
+            KemKap_options_str  += '<option value="Bantul">Bantul</option>';
+            KemKap_options_str  += '<option value="Berbah">Berbah</option>';
+            KemKap_options_str  += '<option value="Danurejan">Danurejan</option>';
+            KemKap_options_str  += '<option value="Depok">Depok</option>';
+            KemKap_options_str  += '<option value="Gamping">Gamping</option>';
+            KemKap_options_str  += '<option value="Gedongtengen">Gedongtengen</option>';
+            KemKap_options_str  += '<option value="Godean">Godean</option>';
+            KemKap_options_str  += '<option value="Gondokusuman">Gondokusuman</option>';
+            KemKap_options_str  += '<option value="Gondomanan">Gondomanan</option>';
+            KemKap_options_str  += '<option value="Imogiri">Imogiri</option>';
+            KemKap_options_str  += '<option value="Jetis">Jetis</option>';
+            KemKap_options_str  += '<option value="Kalasan">Kalasan</option>';
+            KemKap_options_str  += '<option value="Kasihan">Kasihan</option>';
+            KemKap_options_str  += '<option value="Kotagede">Kotagede</option>';
+            KemKap_options_str  += '<option value="Kraton">Kraton</option>';
+            KemKap_options_str  += '<option value="Kretek">Kretek</option>';
+            KemKap_options_str  += '<option value="Mantrijeron">Mantrijeron</option>';
+            KemKap_options_str  += '<option value="Mergangsan">Mergangsan</option>';
+            KemKap_options_str  += '<option value="Mlati">Mlati</option>';
+            KemKap_options_str  += '<option value="Ngaglik">Ngaglik</option>';
+            KemKap_options_str  += '<option value="Ngampilan">Ngampilan</option>';
+            KemKap_options_str  += '<option value="Ngemplak">Ngemplak</option>';
+            KemKap_options_str  += '<option value="Pakem">Pakem</option>';
+            KemKap_options_str  += '<option value="Pakualaman">Pakualaman</option>';
+            KemKap_options_str  += '<option value="Piyungan">Piyungan</option>';
+            KemKap_options_str  += '<option value="Pleret">Pleret</option>';
+            KemKap_options_str  += '<option value="Prambanan">Prambanan</option>';
+            KemKap_options_str  += '<option value="Pundong">Pundong</option>';
+            KemKap_options_str  += '<option value="Purwomartani">Purwomartani</option>';
+            KemKap_options_str  += '<option value="Sewon">Sewon</option>';
+            KemKap_options_str  += '<option value="Sleman">Sleman</option>';
+            KemKap_options_str  += '<option value="Tamantirto">Tamantirto</option>';
+            KemKap_options_str  += '<option value="Tegalrejo">Tegalrejo</option>';
+            KemKap_options_str  += '<option value="Umbulharjo">Umbulharjo</option>';
+            KemKap_options_str  += '<option value="Wates">Wates</option>';
+            KemKap_options_str  += '<option value="Wirobrajan">Wirobrajan</option>';
+            sel_KemKap.innerHTML = KemKap_options_str;
+            div_KemKap.appendChild(sel_KemKap);
+            var lab_KemKap = document.createElement('div');
+            lab_KemKap.innerHTML = 'Kem/Kap';
+            lab_KemKap.className = 'filterlabel';
+            div_KemKap.appendChild(lab_KemKap);
+            var reset_KemKap = document.createElement('div');
+            reset_KemKap.innerHTML = 'clear filter';
+            reset_KemKap.className = 'filterlabel';
+            reset_KemKap.onclick = function() {
+                var options = document.getElementById("sel_KemKap").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_KemKap.appendChild(reset_KemKap);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_NoSurat = document.createElement('div');
+            div_NoSurat.id = "div_NoSurat";
+            div_NoSurat.className= "filterselect";
+            document.getElementById("menu").appendChild(div_NoSurat);
+            sel_NoSurat = document.createElement('select');
+            sel_NoSurat.multiple = true;
+            sel_NoSurat.size = 10;
+            sel_NoSurat.id = "sel_NoSurat";
+            var NoSurat_options_str = "<option value='' unselected></option>";
+            sel_NoSurat.onchange = function(){filterFunc()};
+            NoSurat_options_str  += '<option value="NULL">NULL</option>';
+            NoSurat_options_str  += '<option value="-">-</option>';
+            NoSurat_options_str  += '<option value="002/NOT/I/2021">002/NOT/I/2021</option>';
+            NoSurat_options_str  += '<option value="002/PPAT/II/2021">002/PPAT/II/2021</option>';
+            NoSurat_options_str  += '<option value="004/11/DIRUT/01/2020">004/11/DIRUT/01/2020</option>';
+            NoSurat_options_str  += '<option value="006/UM/NOT/IR/I/2022">006/UM/NOT/IR/I/2022</option>';
+            NoSurat_options_str  += '<option value="01/I/NOT/2021">01/I/NOT/2021</option>';
+            NoSurat_options_str  += '<option value="01/PPAT/III/2021">01/PPAT/III/2021</option>';
+            NoSurat_options_str  += '<option value="011/NOT/V/2022">011/NOT/V/2022</option>';
+            NoSurat_options_str  += '<option value="02.26.003/AMI/D.1/SUM/2024">02.26.003/AMI/D.1/SUM/2024</option>';
+            NoSurat_options_str  += '<option value="03/N/K/I/2022">03/N/K/I/2022</option>';
+            NoSurat_options_str  += '<option value="03/PK-1/PRekom/IX/2022">03/PK-1/PRekom/IX/2022</option>';
+            NoSurat_options_str  += '<option value="032/2709/BKAD">032/2709/BKAD</option>';
+            NoSurat_options_str  += '<option value="035.GK.F">035.GK.F</option>';
+            NoSurat_options_str  += '<option value="04/RIS/IV/2021">04/RIS/IV/2021</option>';
+            NoSurat_options_str  += '<option value="04298/KE.0048/2020">04298/KE.0048/2020</option>';
+            NoSurat_options_str  += '<option value="05/N/K/I/2021">05/N/K/I/2021</option>';
+            NoSurat_options_str  += '<option value="06/K-PK RI/2022">06/K-PK RI/2022</option>';
+            NoSurat_options_str  += '<option value="07/N/K/III/2021">07/N/K/III/2021</option>';
+            NoSurat_options_str  += '<option value="07/NOT/UM/IV/2021">07/NOT/UM/IV/2021</option>';
+            NoSurat_options_str  += '<option value="076/III/DIRUT/08/2022">076/III/DIRUT/08/2022</option>';
+            NoSurat_options_str  += '<option value="10.06.001/AMI/D.1/SUM/2023">10.06.001/AMI/D.1/SUM/2023</option>';
+            NoSurat_options_str  += '<option value="101/PPAT/I/2020">101/PPAT/I/2020</option>';
+            NoSurat_options_str  += '<option value="112/PPAT/III/2021">112/PPAT/III/2021</option>';
+            NoSurat_options_str  += '<option value="112/XII/NOT/BHS/2020">112/XII/NOT/BHS/2020</option>';
+            NoSurat_options_str  += '<option value="114/XII/NOT/BHS/2020">114/XII/NOT/BHS/2020</option>';
+            NoSurat_options_str  += '<option value="119/PPAT/IV/2021">119/PPAT/IV/2021</option>';
+            NoSurat_options_str  += '<option value="12/I/NOT/BHS/2021">12/I/NOT/BHS/2021</option>';
+            NoSurat_options_str  += '<option value="13/8/PPAT/III/2021">13/8/PPAT/III/2021</option>';
+            NoSurat_options_str  += '<option value="13/VII/PPAT/2021">13/VII/PPAT/2021</option>';
+            NoSurat_options_str  += '<option value="1313/RSBL/SDM.220/VI/2020">1313/RSBL/SDM.220/VI/2020</option>';
+            NoSurat_options_str  += '<option value="142/K/ASET/BOPKRI/IV/2021">142/K/ASET/BOPKRI/IV/2021</option>';
+            NoSurat_options_str  += '<option value="147/PPAT/X/2021">147/PPAT/X/2021</option>';
+            NoSurat_options_str  += '<option value="1661/SB/OR.03.02/VI/2020">1661/SB/OR.03.02/VI/2020</option>';
+            NoSurat_options_str  += '<option value="18/III/NOT/RW/2021">18/III/NOT/RW/2021</option>';
+            NoSurat_options_str  += '<option value="19/III/NOT/RW/2021">19/III/NOT/RW/2021</option>';
+            NoSurat_options_str  += '<option value="20/N/K/VI/2022">20/N/K/VI/2022</option>';
+            NoSurat_options_str  += '<option value="200/SM.PRPSH/UM/KWY/IV/2021">200/SM.PRPSH/UM/KWY/IV/2021</option>';
+            NoSurat_options_str  += '<option value="2020-07-22">2020-07-22</option>';
+            NoSurat_options_str  += '<option value="2020-09-22">2020-09-22</option>';
+            NoSurat_options_str  += '<option value="2020/09/29">2020/09/29</option>';
+            NoSurat_options_str  += '<option value="22/820-3/BSM-YK">22/820-3/BSM-YK</option>';
+            NoSurat_options_str  += '<option value="23/X/PPAT/2020">23/X/PPAT/2020</option>';
+            NoSurat_options_str  += '<option value="27/ADR/V/2024">27/ADR/V/2024</option>';
+            NoSurat_options_str  += '<option value="35/YGL/XII/2021 & 36/YGL/XII/2021">35/YGL/XII/2021 & 36/YGL/XII/2021</option>';
+            NoSurat_options_str  += '<option value="355/BM-YK/HT/VIII/2020">355/BM-YK/HT/VIII/2020</option>';
+            NoSurat_options_str  += '<option value="356/BM-YK/HT/VIII/2020">356/BM-YK/HT/VIII/2020</option>';
+            NoSurat_options_str  += '<option value="357/BM-YK/HT/VIII/2020">357/BM-YK/HT/VIII/2020</option>';
+            NoSurat_options_str  += '<option value="358/BM-YK/HT/VIII/2020">358/BM-YK/HT/VIII/2020</option>';
+            NoSurat_options_str  += '<option value="365/D/DIR/VII/2021">365/D/DIR/VII/2021</option>';
+            NoSurat_options_str  += '<option value="5050/DIR/MB/XII/2020">5050/DIR/MB/XII/2020</option>';
+            NoSurat_options_str  += '<option value="590/1591:590/1592">590/1591:590/1592</option>';
+            NoSurat_options_str  += '<option value="590/308">590/308</option>';
+            NoSurat_options_str  += '<option value="590/8249">590/8249</option>';
+            NoSurat_options_str  += '<option value="616/SMG-AMC/VII/2021">616/SMG-AMC/VII/2021</option>';
+            NoSurat_options_str  += '<option value="84/PPAT/VIII/2020">84/PPAT/VIII/2020</option>';
+            NoSurat_options_str  += '<option value="88/VII/NOT/BHS/2021">88/VII/NOT/BHS/2021</option>';
+            NoSurat_options_str  += '<option value="99/PPAT/I/2020">99/PPAT/I/2020</option>';
+            NoSurat_options_str  += '<option value="HP.01.02/2377,2376,2374,2496,2495,2493,2497/34.04/VII/2020">HP.01.02/2377,2376,2374,2496,2495,2493,2497/34.04/VII/2020</option>';
+            NoSurat_options_str  += '<option value="HP.01/2494/34.04/VII/2020">HP.01/2494/34.04/VII/2020</option>';
+            NoSurat_options_str  += '<option value="HP.01/2871/34.04/IX/2020">HP.01/2871/34.04/IX/2020</option>';
+            NoSurat_options_str  += '<option value="HP.01/4243/34.04/XI/2020">HP.01/4243/34.04/XI/2020</option>';
+            NoSurat_options_str  += '<option value="HP.01/4244/34.04/X/2020">HP.01/4244/34.04/X/2020</option>';
+            NoSurat_options_str  += '<option value="HP.01/574/34.04/II/2021">HP.01/574/34.04/II/2021</option>';
+            NoSurat_options_str  += '<option value="MP.01.01.02/647/34.4/II/2020">MP.01.01.02/647/34.4/II/2020</option>';
+            NoSurat_options_str  += '<option value="RKHGB/KMI/03/XII/20">RKHGB/KMI/03/XII/20</option>';
+            NoSurat_options_str  += '<option value="UM/R/../2020">UM/R/../2020</option>';
+            NoSurat_options_str  += '<option value="Usekop.80/L-1/KS/2022">Usekop.80/L-1/KS/2022</option>';
+            sel_NoSurat.innerHTML = NoSurat_options_str;
+            div_NoSurat.appendChild(sel_NoSurat);
+            var lab_NoSurat = document.createElement('div');
+            lab_NoSurat.innerHTML = 'No. Surat';
+            lab_NoSurat.className = 'filterlabel';
+            div_NoSurat.appendChild(lab_NoSurat);
+            var reset_NoSurat = document.createElement('div');
+            reset_NoSurat.innerHTML = 'clear filter';
+            reset_NoSurat.className = 'filterlabel';
+            reset_NoSurat.onclick = function() {
+                var options = document.getElementById("sel_NoSurat").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_NoSurat.appendChild(reset_NoSurat);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Id = document.createElement('div');
+            div_Id.id = "div_Id";
+            div_Id.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Id);
+            sel_Id = document.createElement('select');
+            sel_Id.multiple = true;
+            sel_Id.size = 10;
+            sel_Id.id = "sel_Id";
+            var Id_options_str = "<option value='' unselected></option>";
+            sel_Id.onchange = function(){filterFunc()};
+            Id_options_str  += '<option value="1">1</option>';
+            Id_options_str  += '<option value="10">10</option>';
+            Id_options_str  += '<option value="100">100</option>';
+            Id_options_str  += '<option value="101">101</option>';
+            Id_options_str  += '<option value="102">102</option>';
+            Id_options_str  += '<option value="103">103</option>';
+            Id_options_str  += '<option value="104">104</option>';
+            Id_options_str  += '<option value="105">105</option>';
+            Id_options_str  += '<option value="106">106</option>';
+            Id_options_str  += '<option value="107">107</option>';
+            Id_options_str  += '<option value="108">108</option>';
+            Id_options_str  += '<option value="109">109</option>';
+            Id_options_str  += '<option value="11">11</option>';
+            Id_options_str  += '<option value="110">110</option>';
+            Id_options_str  += '<option value="111">111</option>';
+            Id_options_str  += '<option value="112">112</option>';
+            Id_options_str  += '<option value="113">113</option>';
+            Id_options_str  += '<option value="114">114</option>';
+            Id_options_str  += '<option value="115">115</option>';
+            Id_options_str  += '<option value="116">116</option>';
+            Id_options_str  += '<option value="117">117</option>';
+            Id_options_str  += '<option value="118">118</option>';
+            Id_options_str  += '<option value="119">119</option>';
+            Id_options_str  += '<option value="12">12</option>';
+            Id_options_str  += '<option value="120">120</option>';
+            Id_options_str  += '<option value="121">121</option>';
+            Id_options_str  += '<option value="122">122</option>';
+            Id_options_str  += '<option value="123">123</option>';
+            Id_options_str  += '<option value="124">124</option>';
+            Id_options_str  += '<option value="125">125</option>';
+            Id_options_str  += '<option value="126">126</option>';
+            Id_options_str  += '<option value="127">127</option>';
+            Id_options_str  += '<option value="128">128</option>';
+            Id_options_str  += '<option value="129">129</option>';
+            Id_options_str  += '<option value="13">13</option>';
+            Id_options_str  += '<option value="130">130</option>';
+            Id_options_str  += '<option value="131">131</option>';
+            Id_options_str  += '<option value="132">132</option>';
+            Id_options_str  += '<option value="133">133</option>';
+            Id_options_str  += '<option value="134">134</option>';
+            Id_options_str  += '<option value="135">135</option>';
+            Id_options_str  += '<option value="136">136</option>';
+            Id_options_str  += '<option value="137">137</option>';
+            Id_options_str  += '<option value="138">138</option>';
+            Id_options_str  += '<option value="14">14</option>';
+            Id_options_str  += '<option value="140">140</option>';
+            Id_options_str  += '<option value="141">141</option>';
+            Id_options_str  += '<option value="142">142</option>';
+            Id_options_str  += '<option value="143">143</option>';
+            Id_options_str  += '<option value="144">144</option>';
+            Id_options_str  += '<option value="145">145</option>';
+            Id_options_str  += '<option value="146">146</option>';
+            Id_options_str  += '<option value="147">147</option>';
+            Id_options_str  += '<option value="148">148</option>';
+            Id_options_str  += '<option value="149">149</option>';
+            Id_options_str  += '<option value="15">15</option>';
+            Id_options_str  += '<option value="150">150</option>';
+            Id_options_str  += '<option value="151">151</option>';
+            Id_options_str  += '<option value="152">152</option>';
+            Id_options_str  += '<option value="153">153</option>';
+            Id_options_str  += '<option value="154">154</option>';
+            Id_options_str  += '<option value="155">155</option>';
+            Id_options_str  += '<option value="156">156</option>';
+            Id_options_str  += '<option value="157">157</option>';
+            Id_options_str  += '<option value="158">158</option>';
+            Id_options_str  += '<option value="159">159</option>';
+            Id_options_str  += '<option value="16">16</option>';
+            Id_options_str  += '<option value="160">160</option>';
+            Id_options_str  += '<option value="161">161</option>';
+            Id_options_str  += '<option value="162">162</option>';
+            Id_options_str  += '<option value="163">163</option>';
+            Id_options_str  += '<option value="164">164</option>';
+            Id_options_str  += '<option value="165">165</option>';
+            Id_options_str  += '<option value="166">166</option>';
+            Id_options_str  += '<option value="167">167</option>';
+            Id_options_str  += '<option value="168">168</option>';
+            Id_options_str  += '<option value="169">169</option>';
+            Id_options_str  += '<option value="17">17</option>';
+            Id_options_str  += '<option value="170">170</option>';
+            Id_options_str  += '<option value="171">171</option>';
+            Id_options_str  += '<option value="172">172</option>';
+            Id_options_str  += '<option value="173">173</option>';
+            Id_options_str  += '<option value="174">174</option>';
+            Id_options_str  += '<option value="175">175</option>';
+            Id_options_str  += '<option value="176">176</option>';
+            Id_options_str  += '<option value="177">177</option>';
+            Id_options_str  += '<option value="178">178</option>';
+            Id_options_str  += '<option value="179">179</option>';
+            Id_options_str  += '<option value="18">18</option>';
+            Id_options_str  += '<option value="180">180</option>';
+            Id_options_str  += '<option value="181">181</option>';
+            Id_options_str  += '<option value="182">182</option>';
+            Id_options_str  += '<option value="183">183</option>';
+            Id_options_str  += '<option value="184">184</option>';
+            Id_options_str  += '<option value="185">185</option>';
+            Id_options_str  += '<option value="186">186</option>';
+            Id_options_str  += '<option value="187">187</option>';
+            Id_options_str  += '<option value="188">188</option>';
+            Id_options_str  += '<option value="189">189</option>';
+            Id_options_str  += '<option value="19">19</option>';
+            Id_options_str  += '<option value="190">190</option>';
+            Id_options_str  += '<option value="191">191</option>';
+            Id_options_str  += '<option value="192">192</option>';
+            Id_options_str  += '<option value="193">193</option>';
+            Id_options_str  += '<option value="194">194</option>';
+            Id_options_str  += '<option value="195">195</option>';
+            Id_options_str  += '<option value="196">196</option>';
+            Id_options_str  += '<option value="197">197</option>';
+            Id_options_str  += '<option value="198">198</option>';
+            Id_options_str  += '<option value="199">199</option>';
+            Id_options_str  += '<option value="2">2</option>';
+            Id_options_str  += '<option value="20">20</option>';
+            Id_options_str  += '<option value="200">200</option>';
+            Id_options_str  += '<option value="201">201</option>';
+            Id_options_str  += '<option value="202">202</option>';
+            Id_options_str  += '<option value="203">203</option>';
+            Id_options_str  += '<option value="204">204</option>';
+            Id_options_str  += '<option value="206">206</option>';
+            Id_options_str  += '<option value="207">207</option>';
+            Id_options_str  += '<option value="208">208</option>';
+            Id_options_str  += '<option value="209">209</option>';
+            Id_options_str  += '<option value="21">21</option>';
+            Id_options_str  += '<option value="210">210</option>';
+            Id_options_str  += '<option value="211">211</option>';
+            Id_options_str  += '<option value="212">212</option>';
+            Id_options_str  += '<option value="213">213</option>';
+            Id_options_str  += '<option value="214">214</option>';
+            Id_options_str  += '<option value="215">215</option>';
+            Id_options_str  += '<option value="216">216</option>';
+            Id_options_str  += '<option value="217">217</option>';
+            Id_options_str  += '<option value="218">218</option>';
+            Id_options_str  += '<option value="22">22</option>';
+            Id_options_str  += '<option value="220">220</option>';
+            Id_options_str  += '<option value="221">221</option>';
+            Id_options_str  += '<option value="222">222</option>';
+            Id_options_str  += '<option value="223">223</option>';
+            Id_options_str  += '<option value="224">224</option>';
+            Id_options_str  += '<option value="225">225</option>';
+            Id_options_str  += '<option value="226">226</option>';
+            Id_options_str  += '<option value="227">227</option>';
+            Id_options_str  += '<option value="228">228</option>';
+            Id_options_str  += '<option value="229">229</option>';
+            Id_options_str  += '<option value="23">23</option>';
+            Id_options_str  += '<option value="230">230</option>';
+            Id_options_str  += '<option value="231">231</option>';
+            Id_options_str  += '<option value="232">232</option>';
+            Id_options_str  += '<option value="233">233</option>';
+            Id_options_str  += '<option value="234">234</option>';
+            Id_options_str  += '<option value="235">235</option>';
+            Id_options_str  += '<option value="236">236</option>';
+            Id_options_str  += '<option value="237">237</option>';
+            Id_options_str  += '<option value="238">238</option>';
+            Id_options_str  += '<option value="239">239</option>';
+            Id_options_str  += '<option value="24">24</option>';
+            Id_options_str  += '<option value="240">240</option>';
+            Id_options_str  += '<option value="241">241</option>';
+            Id_options_str  += '<option value="242">242</option>';
+            Id_options_str  += '<option value="243">243</option>';
+            Id_options_str  += '<option value="244">244</option>';
+            Id_options_str  += '<option value="245">245</option>';
+            Id_options_str  += '<option value="246">246</option>';
+            Id_options_str  += '<option value="247">247</option>';
+            Id_options_str  += '<option value="248">248</option>';
+            Id_options_str  += '<option value="249">249</option>';
+            Id_options_str  += '<option value="25">25</option>';
+            Id_options_str  += '<option value="250">250</option>';
+            Id_options_str  += '<option value="251">251</option>';
+            Id_options_str  += '<option value="252">252</option>';
+            Id_options_str  += '<option value="253">253</option>';
+            Id_options_str  += '<option value="254">254</option>';
+            Id_options_str  += '<option value="255">255</option>';
+            Id_options_str  += '<option value="256">256</option>';
+            Id_options_str  += '<option value="257">257</option>';
+            Id_options_str  += '<option value="258">258</option>';
+            Id_options_str  += '<option value="259">259</option>';
+            Id_options_str  += '<option value="26">26</option>';
+            Id_options_str  += '<option value="260">260</option>';
+            Id_options_str  += '<option value="261">261</option>';
+            Id_options_str  += '<option value="262">262</option>';
+            Id_options_str  += '<option value="263">263</option>';
+            Id_options_str  += '<option value="264">264</option>';
+            Id_options_str  += '<option value="265">265</option>';
+            Id_options_str  += '<option value="267">267</option>';
+            Id_options_str  += '<option value="268">268</option>';
+            Id_options_str  += '<option value="269">269</option>';
+            Id_options_str  += '<option value="27">27</option>';
+            Id_options_str  += '<option value="270">270</option>';
+            Id_options_str  += '<option value="271">271</option>';
+            Id_options_str  += '<option value="272">272</option>';
+            Id_options_str  += '<option value="273">273</option>';
+            Id_options_str  += '<option value="274">274</option>';
+            Id_options_str  += '<option value="275">275</option>';
+            Id_options_str  += '<option value="277">277</option>';
+            Id_options_str  += '<option value="278">278</option>';
+            Id_options_str  += '<option value="279">279</option>';
+            Id_options_str  += '<option value="28">28</option>';
+            Id_options_str  += '<option value="280">280</option>';
+            Id_options_str  += '<option value="281">281</option>';
+            Id_options_str  += '<option value="282">282</option>';
+            Id_options_str  += '<option value="283">283</option>';
+            Id_options_str  += '<option value="284">284</option>';
+            Id_options_str  += '<option value="286">286</option>';
+            Id_options_str  += '<option value="287">287</option>';
+            Id_options_str  += '<option value="288">288</option>';
+            Id_options_str  += '<option value="289">289</option>';
+            Id_options_str  += '<option value="29">29</option>';
+            Id_options_str  += '<option value="290">290</option>';
+            Id_options_str  += '<option value="291">291</option>';
+            Id_options_str  += '<option value="292">292</option>';
+            Id_options_str  += '<option value="293">293</option>';
+            Id_options_str  += '<option value="295">295</option>';
+            Id_options_str  += '<option value="296">296</option>';
+            Id_options_str  += '<option value="297">297</option>';
+            Id_options_str  += '<option value="298">298</option>';
+            Id_options_str  += '<option value="299">299</option>';
+            Id_options_str  += '<option value="3">3</option>';
+            Id_options_str  += '<option value="30">30</option>';
+            Id_options_str  += '<option value="300">300</option>';
+            Id_options_str  += '<option value="301">301</option>';
+            Id_options_str  += '<option value="302">302</option>';
+            Id_options_str  += '<option value="303">303</option>';
+            Id_options_str  += '<option value="304">304</option>';
+            Id_options_str  += '<option value="305">305</option>';
+            Id_options_str  += '<option value="306">306</option>';
+            Id_options_str  += '<option value="307">307</option>';
+            Id_options_str  += '<option value="308">308</option>';
+            Id_options_str  += '<option value="309">309</option>';
+            Id_options_str  += '<option value="31">31</option>';
+            Id_options_str  += '<option value="310">310</option>';
+            Id_options_str  += '<option value="311">311</option>';
+            Id_options_str  += '<option value="312">312</option>';
+            Id_options_str  += '<option value="313">313</option>';
+            Id_options_str  += '<option value="314">314</option>';
+            Id_options_str  += '<option value="315">315</option>';
+            Id_options_str  += '<option value="316">316</option>';
+            Id_options_str  += '<option value="317">317</option>';
+            Id_options_str  += '<option value="318">318</option>';
+            Id_options_str  += '<option value="319">319</option>';
+            Id_options_str  += '<option value="32">32</option>';
+            Id_options_str  += '<option value="320">320</option>';
+            Id_options_str  += '<option value="321">321</option>';
+            Id_options_str  += '<option value="324">324</option>';
+            Id_options_str  += '<option value="325">325</option>';
+            Id_options_str  += '<option value="326">326</option>';
+            Id_options_str  += '<option value="327">327</option>';
+            Id_options_str  += '<option value="328">328</option>';
+            Id_options_str  += '<option value="329">329</option>';
+            Id_options_str  += '<option value="33">33</option>';
+            Id_options_str  += '<option value="330">330</option>';
+            Id_options_str  += '<option value="331">331</option>';
+            Id_options_str  += '<option value="332">332</option>';
+            Id_options_str  += '<option value="333">333</option>';
+            Id_options_str  += '<option value="334">334</option>';
+            Id_options_str  += '<option value="335">335</option>';
+            Id_options_str  += '<option value="336">336</option>';
+            Id_options_str  += '<option value="337">337</option>';
+            Id_options_str  += '<option value="339">339</option>';
+            Id_options_str  += '<option value="34">34</option>';
+            Id_options_str  += '<option value="340">340</option>';
+            Id_options_str  += '<option value="341">341</option>';
+            Id_options_str  += '<option value="342">342</option>';
+            Id_options_str  += '<option value="343">343</option>';
+            Id_options_str  += '<option value="344">344</option>';
+            Id_options_str  += '<option value="345">345</option>';
+            Id_options_str  += '<option value="346">346</option>';
+            Id_options_str  += '<option value="347">347</option>';
+            Id_options_str  += '<option value="348">348</option>';
+            Id_options_str  += '<option value="349">349</option>';
+            Id_options_str  += '<option value="35">35</option>';
+            Id_options_str  += '<option value="350">350</option>';
+            Id_options_str  += '<option value="352">352</option>';
+            Id_options_str  += '<option value="353">353</option>';
+            Id_options_str  += '<option value="354">354</option>';
+            Id_options_str  += '<option value="355">355</option>';
+            Id_options_str  += '<option value="356">356</option>';
+            Id_options_str  += '<option value="357">357</option>';
+            Id_options_str  += '<option value="358">358</option>';
+            Id_options_str  += '<option value="359">359</option>';
+            Id_options_str  += '<option value="36">36</option>';
+            Id_options_str  += '<option value="360">360</option>';
+            Id_options_str  += '<option value="361">361</option>';
+            Id_options_str  += '<option value="362">362</option>';
+            Id_options_str  += '<option value="363">363</option>';
+            Id_options_str  += '<option value="364">364</option>';
+            Id_options_str  += '<option value="365">365</option>';
+            Id_options_str  += '<option value="366">366</option>';
+            Id_options_str  += '<option value="367">367</option>';
+            Id_options_str  += '<option value="368">368</option>';
+            Id_options_str  += '<option value="369">369</option>';
+            Id_options_str  += '<option value="37">37</option>';
+            Id_options_str  += '<option value="370">370</option>';
+            Id_options_str  += '<option value="371">371</option>';
+            Id_options_str  += '<option value="372">372</option>';
+            Id_options_str  += '<option value="373">373</option>';
+            Id_options_str  += '<option value="374">374</option>';
+            Id_options_str  += '<option value="375">375</option>';
+            Id_options_str  += '<option value="376">376</option>';
+            Id_options_str  += '<option value="377">377</option>';
+            Id_options_str  += '<option value="378">378</option>';
+            Id_options_str  += '<option value="379">379</option>';
+            Id_options_str  += '<option value="38">38</option>';
+            Id_options_str  += '<option value="380">380</option>';
+            Id_options_str  += '<option value="381">381</option>';
+            Id_options_str  += '<option value="382">382</option>';
+            Id_options_str  += '<option value="385">385</option>';
+            Id_options_str  += '<option value="386">386</option>';
+            Id_options_str  += '<option value="387">387</option>';
+            Id_options_str  += '<option value="388">388</option>';
+            Id_options_str  += '<option value="389">389</option>';
+            Id_options_str  += '<option value="39">39</option>';
+            Id_options_str  += '<option value="390">390</option>';
+            Id_options_str  += '<option value="391">391</option>';
+            Id_options_str  += '<option value="392">392</option>';
+            Id_options_str  += '<option value="393">393</option>';
+            Id_options_str  += '<option value="394">394</option>';
+            Id_options_str  += '<option value="395">395</option>';
+            Id_options_str  += '<option value="396">396</option>';
+            Id_options_str  += '<option value="397">397</option>';
+            Id_options_str  += '<option value="398">398</option>';
+            Id_options_str  += '<option value="399">399</option>';
+            Id_options_str  += '<option value="4">4</option>';
+            Id_options_str  += '<option value="40">40</option>';
+            Id_options_str  += '<option value="400">400</option>';
+            Id_options_str  += '<option value="401">401</option>';
+            Id_options_str  += '<option value="403">403</option>';
+            Id_options_str  += '<option value="404">404</option>';
+            Id_options_str  += '<option value="405">405</option>';
+            Id_options_str  += '<option value="406">406</option>';
+            Id_options_str  += '<option value="407">407</option>';
+            Id_options_str  += '<option value="408">408</option>';
+            Id_options_str  += '<option value="409">409</option>';
+            Id_options_str  += '<option value="41">41</option>';
+            Id_options_str  += '<option value="42">42</option>';
+            Id_options_str  += '<option value="43">43</option>';
+            Id_options_str  += '<option value="44">44</option>';
+            Id_options_str  += '<option value="45">45</option>';
+            Id_options_str  += '<option value="46">46</option>';
+            Id_options_str  += '<option value="47">47</option>';
+            Id_options_str  += '<option value="48">48</option>';
+            Id_options_str  += '<option value="49">49</option>';
+            Id_options_str  += '<option value="5">5</option>';
+            Id_options_str  += '<option value="50">50</option>';
+            Id_options_str  += '<option value="51">51</option>';
+            Id_options_str  += '<option value="52">52</option>';
+            Id_options_str  += '<option value="53">53</option>';
+            Id_options_str  += '<option value="54">54</option>';
+            Id_options_str  += '<option value="55">55</option>';
+            Id_options_str  += '<option value="56">56</option>';
+            Id_options_str  += '<option value="57">57</option>';
+            Id_options_str  += '<option value="58">58</option>';
+            Id_options_str  += '<option value="59">59</option>';
+            Id_options_str  += '<option value="6">6</option>';
+            Id_options_str  += '<option value="60">60</option>';
+            Id_options_str  += '<option value="61">61</option>';
+            Id_options_str  += '<option value="62">62</option>';
+            Id_options_str  += '<option value="63">63</option>';
+            Id_options_str  += '<option value="64">64</option>';
+            Id_options_str  += '<option value="65">65</option>';
+            Id_options_str  += '<option value="66">66</option>';
+            Id_options_str  += '<option value="67">67</option>';
+            Id_options_str  += '<option value="68">68</option>';
+            Id_options_str  += '<option value="69">69</option>';
+            Id_options_str  += '<option value="7">7</option>';
+            Id_options_str  += '<option value="70">70</option>';
+            Id_options_str  += '<option value="71">71</option>';
+            Id_options_str  += '<option value="72">72</option>';
+            Id_options_str  += '<option value="73">73</option>';
+            Id_options_str  += '<option value="74">74</option>';
+            Id_options_str  += '<option value="75">75</option>';
+            Id_options_str  += '<option value="76">76</option>';
+            Id_options_str  += '<option value="77">77</option>';
+            Id_options_str  += '<option value="78">78</option>';
+            Id_options_str  += '<option value="79">79</option>';
+            Id_options_str  += '<option value="8">8</option>';
+            Id_options_str  += '<option value="80">80</option>';
+            Id_options_str  += '<option value="81">81</option>';
+            Id_options_str  += '<option value="82">82</option>';
+            Id_options_str  += '<option value="83">83</option>';
+            Id_options_str  += '<option value="84">84</option>';
+            Id_options_str  += '<option value="85">85</option>';
+            Id_options_str  += '<option value="86">86</option>';
+            Id_options_str  += '<option value="87">87</option>';
+            Id_options_str  += '<option value="88">88</option>';
+            Id_options_str  += '<option value="89">89</option>';
+            Id_options_str  += '<option value="9">9</option>';
+            Id_options_str  += '<option value="90">90</option>';
+            Id_options_str  += '<option value="91">91</option>';
+            Id_options_str  += '<option value="92">92</option>';
+            Id_options_str  += '<option value="93">93</option>';
+            Id_options_str  += '<option value="94">94</option>';
+            Id_options_str  += '<option value="95">95</option>';
+            Id_options_str  += '<option value="96">96</option>';
+            Id_options_str  += '<option value="97">97</option>';
+            Id_options_str  += '<option value="98">98</option>';
+            Id_options_str  += '<option value="99">99</option>';
+            sel_Id.innerHTML = Id_options_str;
+            div_Id.appendChild(sel_Id);
+            var lab_Id = document.createElement('div');
+            lab_Id.innerHTML = 'Id';
+            lab_Id.className = 'filterlabel';
+            div_Id.appendChild(lab_Id);
+            var reset_Id = document.createElement('div');
+            reset_Id.innerHTML = 'clear filter';
+            reset_Id.className = 'filterlabel';
+            reset_Id.onclick = function() {
+                var options = document.getElementById("sel_Id").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_Id.appendChild(reset_Id);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_layer = document.createElement('div');
+            div_layer.id = "div_layer";
+            div_layer.className= "filterselect";
+            document.getElementById("menu").appendChild(div_layer);
+            sel_layer = document.createElement('select');
+            sel_layer.multiple = true;
+            sel_layer.size = 10;
+            sel_layer.id = "sel_layer";
+            var layer_options_str = "<option value='' unselected></option>";
+            sel_layer.onchange = function(){filterFunc()};
+            layer_options_str  += '<option value="BANTUL_JOIN_2020">BANTUL_JOIN_2020</option>';
+            layer_options_str  += '<option value="BANTUL_JOIN_2021_2">BANTUL_JOIN_2021_2</option>';
+            layer_options_str  += '<option value="BANTUL_JOIN_2022">BANTUL_JOIN_2022</option>';
+            layer_options_str  += '<option value="BANTUL_JOIN_2023">BANTUL_JOIN_2023</option>';
+            layer_options_str  += '<option value="BANTUL_JOIN_2024">BANTUL_JOIN_2024</option>';
+            layer_options_str  += '<option value="KOTA YOGYAKARTA_JOIN_2020">KOTA YOGYAKARTA_JOIN_2020</option>';
+            layer_options_str  += '<option value="KOTA YOGYAKARTA_JOIN_2021_2">KOTA YOGYAKARTA_JOIN_2021_2</option>';
+            layer_options_str  += '<option value="KOTA YOGYAKARTA_JOIN_2022">KOTA YOGYAKARTA_JOIN_2022</option>';
+            layer_options_str  += '<option value="KOTA YOGYAKARTA_JOIN_2023">KOTA YOGYAKARTA_JOIN_2023</option>';
+            layer_options_str  += '<option value="KOTA YOGYAKARTA_JOIN_2024">KOTA YOGYAKARTA_JOIN_2024</option>';
+            layer_options_str  += '<option value="KULON PROGO_JOIN_2023">KULON PROGO_JOIN_2023</option>';
+            layer_options_str  += '<option value="SLEMAN_JOIN_2020">SLEMAN_JOIN_2020</option>';
+            layer_options_str  += '<option value="SLEMAN_JOIN_2021_2">SLEMAN_JOIN_2021_2</option>';
+            layer_options_str  += '<option value="SLEMAN_JOIN_2022">SLEMAN_JOIN_2022</option>';
+            layer_options_str  += '<option value="SLEMAN_JOIN_2023">SLEMAN_JOIN_2023</option>';
+            layer_options_str  += '<option value="SLEMAN_JOIN_2024">SLEMAN_JOIN_2024</option>';
+            sel_layer.innerHTML = layer_options_str;
+            div_layer.appendChild(sel_layer);
+            var lab_layer = document.createElement('div');
+            lab_layer.innerHTML = 'layer';
+            lab_layer.className = 'filterlabel';
+            div_layer.appendChild(lab_layer);
+            var reset_layer = document.createElement('div');
+            reset_layer.innerHTML = 'clear filter';
+            reset_layer.className = 'filterlabel';
+            reset_layer.onclick = function() {
+                var options = document.getElementById("sel_layer").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_layer.appendChild(reset_layer);
+        </script>
+    </body>
+</html>
